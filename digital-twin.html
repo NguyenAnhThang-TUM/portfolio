@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wastewater Treatment Digital Twin Architecture</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .architecture-flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .layer {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 2px solid #e8f4f8;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .layer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #3498db;
+        }
+        
+        .layer-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 8px;
+            margin: -20px -20px 15px -20px;
+        }
+        
+        .option-group {
+            margin-bottom: 20px;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .option-item {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            margin: 4px 0;
+            border-radius: 6px;
+            font-size: 0.85em;
+            border-left: 3px solid #3498db;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .option-item:hover {
+            background: #e3f2fd;
+            transform: translateX(2px);
+        }
+        
+        .recommended {
+            background: #e8f5e8;
+            border-left-color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .arrow {
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid #3498db;
+            z-index: 10;
+        }
+        
+        .layer:last-child .arrow {
+            display: none;
+        }
+        
+        .data-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .flow-step {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+        }
+        
+        .flow-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .flow-arrow {
+            font-size: 1.5em;
+            color: #f39c12;
+            margin: 0 10px;
+        }
+        
+        .technology-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .tech-category {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e8f4f8;
+        }
+        
+        .tech-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .tech-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .tech-item:last-child {
+            border-bottom: none;
+        }
+        
+        .pros-cons {
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+        
+        .pros {
+            color: #27ae60;
+        }
+        
+        .cons {
+            color: #e74c3c;
+        }
+        
+        .implementation-notes {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .notes-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .note-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #f39c12;
+        }
+        
+        @media (max-width: 1200px) {
+            .architecture-flow {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .technology-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .architecture-flow {
+                grid-template-columns: 1fr;
+            }
+            
+            .technology-matrix {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-flow {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Digital Twin Architecture for Wastewater Treatment</h1>
+        <p class="subtitle">Lindström Project - Comprehensive Technology Stack Overview</p>
+        
+        <div class="data-flow">
+            <div class="flow-step">
+                <span class="flow-icon">🏭</span>
+                <strong>Field Data</strong><br>
+                Sensors & Lab
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <span class="flow-icon">🔗</span>
+                <strong>Communication</strong><br>
+                Protocols & Gateways
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <span class="flow-icon">🧠</span>
+                <strong>Digital Twin</strong><br>
+                Models & Simulation
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <span class="flow-icon">💾</span>
+                <strong>Data Storage</strong><br>
+                Databases & Analytics
+            </div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">
+                <span class="flow-icon">⚙️</span>
+                <strong>Control Systems</strong><br>
+                PLC/SCADA/DCS
+            </div>
+        </div>
+        
+        <div class="architecture-flow">
+            <div class="layer">
+                <div class="layer-title">1. Data Sources</div>
+                <div class="option-group">
+                    <div class="option-title">Field Instruments</div>
+                    <div class="option-item recommended">pH/ORP sensors</div>
+                    <div class="option-item recommended">DO sensors</div>
+                    <div class="option-item">Flow meters</div>
+                    <div class="option-item">Level sensors</div>
+                    <div class="option-item">Temperature sensors</div>
+                    <div class="option-item">Turbidity meters</div>
+                    <div class="option-item">Conductivity sensors</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Laboratory Data</div>
+                    <div class="option-item">BOD/COD analysis</div>
+                    <div class="option-item">TSS/VSS measurements</div>
+                    <div class="option-item recommended">MLSS measurements</div>
+                    <div class="option-item">Nutrient analysis (N, P)</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Soft Sensors</div>
+                    <div class="option-item recommended">ML-based estimators</div>
+                    <div class="option-item">Kalman filters</div>
+                    <div class="option-item">Virtual sensors</div>
+                </div>
+                <div class="arrow"></div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">2. Communication</div>
+                <div class="option-group">
+                    <div class="option-title">Field Protocols</div>
+                    <div class="option-item">4-20mA analog</div>
+                    <div class="option-item recommended">Modbus RTU/TCP</div>
+                    <div class="option-item">HART protocol</div>
+                    <div class="option-item">Profibus DP</div>
+                    <div class="option-item">Ethernet/IP</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Network Protocols</div>
+                    <div class="option-item recommended">OPC UA</div>
+                    <div class="option-item recommended">Modbus TCP/IP</div>
+                    <div class="option-item recommended">MQTT</div>
+                    <div class="option-item">DNP3</div>
+                    <div class="option-item">BACnet</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Gateways</div>
+                    <div class="option-item">Protocol converters</div>
+                    <div class="option-item recommended">Edge computing devices</div>
+                    <div class="option-item">IoT gateways</div>
+                </div>
+                <div class="arrow"></div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">3. Modeling Tools</div>
+                <div class="option-group">
+                    <div class="option-title">Selected Platform</div>
+                    <div class="option-item recommended">SUMO (Dynamita)</div>
+                    <div class="option-item">GPS-X (Hydromantis)</div>
+                    <div class="option-item">BioWin (EnviroSim)</div>
+                    <div class="option-item">WEST (DHI)</div>
+                    <div class="option-item">SIMBA# (ifak)</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Custom Development</div>
+                    <div class="option-item recommended">Python (NumPy, SciPy)</div>
+                    <div class="option-item recommended">C# (.NET ecosystem)</div>
+                    <div class="option-item">C++ (performance critical)</div>
+                    <div class="option-item">Rust (safety + performance)</div>
+                    <div class="option-item">MATLAB/Simulink</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Model Types</div>
+                    <div class="option-item">ASM models (1, 2d, 3)</div>
+                    <div class="option-item">ML/AI models (Data-driven model)</div>
+                    <div class="option-item">Hybrid models</div>
+                    <div class="option-item">CFD models</div>
+                </div>
+                <div class="arrow"></div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">4. Data Storage</div>
+                <div class="option-group">
+                    <div class="option-title">Time Series</div>
+                    <div class="option-item recommended">InfluxDB</div>
+                    <div class="option-item">TimescaleDB</div>
+                    <div class="option-item">ClickHouse</div>
+                    <div class="option-item">Prometheus</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Relational</div>
+                    <div class="option-item recommended">PostgreSQL</div>
+                    <div class="option-item">SQL Server</div>
+                    <div class="option-item">MySQL</div>
+                    <div class="option-item">Oracle</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Document/NoSQL</div>
+                    <div class="option-item">MongoDB</div>
+                    <div class="option-item">Redis (caching)</div>
+                    <div class="option-item">Elasticsearch</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">Dashboard (Data Analysis)</div>
+					<div class="option-item">Grafana</div>
+                    <div class="option-item">Tableau</div>
+                    <div class="option-item">Plotly, Highchart</div>
+                    <div class="option-item">Power BI</div>
+                </div>
+                <div class="arrow"></div>
+            </div>
+            
+            <div class="layer">
+                <div class="layer-title">5. Control Systems</div>
+                <div class="option-group">
+                    <div class="option-title">PLC Systems</div>
+                    <div class="option-item recommended">Siemens S7-1200/1500</div>
+                    <div class="option-item">Allen-Bradley CompactLogix</div>
+                    <div class="option-item">Schneider Modicon</div>
+                    <div class="option-item">Mitsubishi FX series</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">SCADA/HMI</div>
+                    <div class="option-item recommended">WinCC (Siemens)</div>
+                    <div class="option-item">FactoryTalk View</div>
+                    <div class="option-item">Wonderware</div>
+                    <div class="option-item">Ignition (Inductive Auto.)</div>
+                </div>
+                <div class="option-group">
+                    <div class="option-title">DCS Systems</div>
+                    <div class="option-item">Siemens PCS 7</div>
+                    <div class="option-item">ABB System 800xA</div>
+                    <div class="option-item">Honeywell Experion</div>
+                    <div class="option-item">Emerson DeltaV</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="technology-matrix">
+            <div class="tech-category">
+                <div class="tech-title">Communication Protocols Comparison</div>
+                <div class="tech-item">
+                    <strong>OPC UA</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Secure, Platform-independent</div>
+                        <div class="cons">✗ Complex setup</div>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <strong>Modbus TCP</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Simple, Widely supported</div>
+                        <div class="cons">✗ Limited security</div>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <strong>MQTT</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Lightweight, IoT-friendly</div>
+                        <div class="cons">✗ Not real-time</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <div class="tech-title">Selected Modeling Platforms</div>
+                <div class="tech-item">
+                    <strong>SUMO Simulation</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Customizable by User-Model option, Flexible</div>
+                        <div class="cons">✗ Requires custom development</div>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <strong>Python Custom</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Full control, Cost-effective</div>
+                        <div class="cons">✗ Development time</div>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <strong>Hybrid Approach</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Best of both worlds</div>
+                        <div class="cons">✗ Integration complexity</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <div class="tech-title">Database Selection Criteria</div>
+                <div class="tech-item">
+                    <strong>InfluxDB</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Time-series optimized</div>
+                        <div class="cons">✗ Limited JOIN operations</div>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <strong>PostgreSQL</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ ACID compliance, Extensions</div>
+                        <div class="cons">✗ Time-series performance</div>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <strong>SQL Server</strong>
+                    <div class="pros-cons">
+                        <div class="pros">✓ Enterprise features</div>
+                        <div class="cons">✗ Licensing costs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="implementation-notes">
+            <div class="notes-title">🚀 Implementation Recommendations for Lindström Project</div>
+            
+            <div class="note-item">
+                <strong>Phase 1 - Data Foundation:</strong> Start with existing field instruments, implement Modbus TCP communication, and set up InfluxDB for time-series data storage. Use Python for initial soft sensor development.
+            </div>
+            
+            <div class="note-item">
+                <strong>Phase 2 - Digital Twin Core:</strong> Deploy SUMO or develop custom Python models for biological processes. Implement OPC UA for standardized communication with Siemens PLCs.
+            </div>
+            
+            <div class="note-item">
+                <strong>Phase 3 - Advanced Analytics:</strong> Add machine learning-based soft sensors, implement predictive maintenance algorithms, and integrate with existing SCADA systems.
+            </div>
+            
+            <div class="note-item">
+                <strong>Phase 4 - Optimization:</strong> Deploy advanced process control algorithms, implement real-time optimization, and add digital dashboard for operators.
+            </div>
+            
+            <div class="note-item">
+                <strong>Key Considerations:</strong> Ensure cybersecurity measures (network segmentation, VPNs), plan for system redundancy, and maintain backup communication paths for critical control loops.
+            </div>
+        </div>
+        
+        <div style="background: #2c3e50; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-top: 30px;">
+            <h3 style="margin: 0; color: #3498db;">Selected Technology Stack for Lindström</h3>
+            <p style="margin: 10px 0; font-size: 1.1em;">
+                <strong>Communication:</strong> OPC UA + Modbus TCP + MQTT | 
+                <strong>Modeling:</strong> SUMO + Python | 
+                <strong>Database:</strong> InfluxDB + PostgreSQL | 
+                <strong>Control:</strong> Siemens S7-1200 + S7.Net library+ C# GUI
+            </p>
+        </div>
+    </div>
+</body>
+</html>
