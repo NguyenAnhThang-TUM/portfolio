@@ -1,8 +1,0 @@
-my-portfolio/
-├── index.html (redirect page)
-├── en/
-│   └── index.html (English version)
-├── de/
-│   └── index.html (German version)
-└── shared/
-    └── styles.css (shared styles)
