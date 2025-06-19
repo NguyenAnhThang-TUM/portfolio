@@ -1,1 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thang Nguyen - Environmental Process Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 15px 0;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+        }
+        
+        .nav-item {
+            margin: 0 5px;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+            border-bottom-color: #63b3ed;
+        }
+        
+        .language-toggle {
+            display: flex;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 5px;
+        }
+        
+        .language-toggle button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .language-toggle button.active {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2c5282, #3182ce);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .cta-buttons {
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #2c5282;
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #2c5282;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5em;
+            color: #2c5282;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 1.1em;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid #3182ce;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            color: #2c5282;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3182ce;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .contact-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            color: #3182ce;
+            width: 30px;
+        }
+        
+        .download-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .download-section h3 {
+            color: #2c5282;
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1a365d;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: #1a365d;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .language-toggle {
+                margin-top: 10px;
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Hide sections initially for smooth reveal */
+        .section {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" data-en="Thang Nguyen" data-de="Thang Nguyen">Thang Nguyen</div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active" data-en="Home" data-de="Start">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-en="About Me" data-de="Über mich">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link" data-en="Services" data-de="Dienstleistungen">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#expertise" class="nav-link" data-en="Expertise" data-de="Fachkompetenz">Expertise</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-en="Contact" data-de="Kontakt">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="language-toggle">
+                <button onclick="switchLanguage('en')" id="btn-en" class="active">EN</button>
+                <button onclick="switchLanguage('de')" id="btn-de">DE</button>
+            </div>
+            
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-en="Thang Nguyen" data-de="Thang Nguyen">Thang Nguyen</h1>
+            <p data-en="Environmental Process Engineer specializing in Digital Twin Implementation and Advanced Wastewater Treatment Systems" 
+               data-de="Umwelttechnik-Ingenieur spezialisiert auf Digital Twin-Implementierung und fortschrittliche Abwasserbehandlungssysteme">
+               Environmental Process Engineer specializing in Digital Twin Implementation and Advanced Wastewater Treatment Systems
+            </p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary" data-en="Get In Touch" data-de="Kontakt aufnehmen">Get In Touch</a>
+                <a href="#services" class="btn btn-secondary" data-en="View Services" data-de="Dienstleistungen ansehen">View Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="About Me" data-de="Über mich">About Me</h2>
+                <p data-en="16+ years of international experience in environmental process engineering" 
+                   data-de="16+ Jahre internationale Erfahrung in der Umweltverfahrenstechnik">
+                   16+ years of international experience in environmental process engineering
+                </p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-en="I am a seasoned Process Engineer with 16 years of international experience specializing in water, wastewater, and industrial process systems. My career has evolved from traditional plant design to pioneering digital process optimization, combining deep engineering fundamentals with cutting-edge technology. With a Master's in Environmental Engineering from TUM, I have successfully delivered complex projects ranging from 500 CMD to 19,200 CMD across Germany, Singapore, Turkey, Vietnam, and Japan. My expertise spans the complete engineering lifecycle - from conceptual design and P&ID development using COMOS (Siemens) to hands-on commissioning and optimization of treatment facilities. Currently, I'm at the forefront of digital transformation in process engineering, developing real-time controllers that create dynamic digital representations of wastewater treatment processes. This work combines my process modeling expertise (BioWin, SUMO, GPS-X) with advanced data analytics using Python, SQL, and visualization tools (Grafana, PowerBI, Plotly) to optimize plant performance in real-time.
+			My approach bridges traditional process engineering with Industry 4.0 technologies, creating digital twins that not only monitor but actively optimize treatment processes. This integration of biological modeling, process simulation, and real-time control systems represents the future of intelligent process management. 
+			What drives me is solving complex engineering challenges that deliver both technical excellence and environmental impact. My international background has developed my ability to adapt quickly to different technical standards and regulatory requirements while maintaining focus on innovative, sustainable solutions. I thrive in collaborative environments where multidisciplinary teams tackle complex problems, combining theoretical knowledge with practical implementation. My goal is to continue advancing the integration of digital technologies with traditional process engineering to create more efficient, sustainable, and intelligent industrial systems."
+                       data-de="Ich bin ein erfahrener Verfahrensingenieur mit 16 Jahren internationaler Erfahrung, spezialisiert auf Wasser-, Abwasser- und industrielle Prozesssysteme. Meine Laufbahn hat sich von der traditionellen Anlagenplanung hin zur wegweisenden digitalen Prozessoptimierung entwickelt, wobei ich fundierte Ingenieurskenntnisse mit modernster Technologie verbinde. Mit einem Master in Umwelttechnik von der TUM habe ich erfolgreich komplexe Projekte von 500 CMD bis 19.200 CMD in Deutschland, Singapur, der Türkei, Vietnam und Japan umgesetzt. Meine Expertise umfasst den kompletten Engineering-Lebenszyklus - von der Konzeptplanung und R&I-Entwicklung mit COMOS (Siemens) bis zur praktischen Inbetriebnahme und Optimierung von Behandlungsanlagen. Derzeit stehe ich an der Spitze der digitalen Transformation in der Verfahrenstechnik und entwickle Echtzeit-Controller, die dynamische digitale Repräsentationen von Abwasserbehandlungsprozessen erstellen. Diese Arbeit kombiniert meine Prozessmodellierungs-Expertise (BioWin, SUMO, GPS-X) mit fortgeschrittener Datenanalyse mittels Python, SQL und Visualisierungstools zur Echtzeitoptimierung der Anlagenleistung. Mein Ansatz verbindet traditionelle Verfahrenstechnik mit Industrie 4.0-Technologien und schafft digitale Zwillinge, die Behandlungsprozesse nicht nur überwachen, sondern aktiv optimieren. Diese Integration von biologischer Modellierung, Prozesssimulation und Echtzeit-Steuerungssystemen repräsentiert die Zukunft des intelligenten Prozessmanagements. Was mich antreibt, ist die Lösung komplexer Ingenieursprobleme, die sowohl technische Exzellenz als auch Umweltauswirkungen liefern. Mein internationaler Hintergrund hat meine Fähigkeit entwickelt, mich schnell an verschiedene technische Standards und regulatorische Anforderungen anzupassen, während ich den Fokus auf innovative, nachhaltige Lösungen beibehalte. Ich gedeihe in kollaborativen Umgebungen, in denen multidisziplinäre Teams komplexe Probleme angehen und theoretisches Wissen mit praktischer Umsetzung verbinden. Mein Ziel ist es, die Integration digitaler Technologien mit traditioneller Verfahrenstechnik weiter voranzutreiben, um effizientere, nachhaltigere und intelligentere Industriesysteme zu schaffen.">
+                       I am a seasoned Process Engineer with extensive international experience specializing in water, wastewater, and industrial process systems. My career has evolved from traditional plant design to pioneering digital process optimization, combining deep engineering fundamentals with cutting-edge technology.
+                    </p>
+                    
+                    <p data-en="My work focuses on the intersection of engineering principles and biological processes, utilizing advanced analytical techniques to improve system performance and environmental outcomes."
+                       data-de="Meine Arbeit konzentriert sich auf die Schnittstelle zwischen Ingenieursprinzipien und biologischen Prozessen, wobei ich fortschrittliche Analysetechniken einsetze, um die Systemleistung und Umweltergebnisse zu verbessern.">
+                       My work focuses on the intersection of engineering principles and biological processes, utilizing advanced analytical techniques to improve system performance and environmental outcomes.
+                    </p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">16+</span>
+                        <span class="stat-label" data-en="Years Experience" data-de="Jahre Erfahrung">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label" data-en="Countries" data-de="Länder">Countries</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">19,200</span>
+                        <span class="stat-label" data-en="CMD Max Project" data-de="CMD Max Projekt">CMD Max Project</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label" data-en="Projects Completed" data-de="Projekte abgeschlossen">Projects Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Services" data-de="Dienstleistungen">Services</h2>
+                <p data-en="Comprehensive solutions for modern wastewater treatment and process optimization" 
+                   data-de="Umfassende Lösungen für moderne Abwasserbehandlung und Prozessoptimierung">
+                   Comprehensive solutions for modern wastewater treatment and process optimization
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3 data-en="Digital Twin Development" data-de="Digital Twin Entwicklung">Digital Twin Development</h3>
+                    <p data-en="Complete implementation of digital twin systems for real-time monitoring and optimization of treatment facilities"
+                       data-de="Vollständige Implementierung von Digital Twin-Systemen für Echtzeitüberwachung und Optimierung von Behandlungsanlagen">
+                       Complete implementation of digital twin systems for real-time monitoring and optimization of treatment facilities
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3 data-en="Process Engineering" data-de="Verfahrenstechnik">Process Engineering</h3>
+                    <p data-en="Design, optimization, and commissioning of wastewater treatment systems from concept to operation"
+                       data-de="Auslegung, Optimierung und Inbetriebnahme von Abwasserbehandlungsanlagen von der Konzeption bis zum Betrieb">
+                       Design, optimization, and commissioning of wastewater treatment systems from concept to operation
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 data-en="Data Analytics & Modeling" data-de="Datenanalyse & Modellierung">Data Analytics & Modeling</h3>
+                    <p data-en="Advanced analytics using Python, SQL, and visualization tools for process optimization and predictive maintenance"
+                       data-de="Fortgeschrittene Analytik mit Python, SQL und Visualisierungstools für Prozessoptimierung und vorausschauende Wartung">
+                       Advanced analytics using Python, SQL, and visualization tools for process optimization and predictive maintenance
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3 data-en="International Consulting" data-de="Internationale Beratung">International Consulting</h3>
+                    <p data-en="Project management and technical consulting for international wastewater treatment projects"
+                       data-de="Projektmanagement und technische Beratung für internationale Abwasserbehandlungsprojekte">
+                       Project management and technical consulting for international wastewater treatment projects
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3 data-en="P&ID Development" data-de="R&I-Entwicklung">P&ID Development</h3>
+                    <p data-en="Professional P&ID design using COMOS (Siemens) for complex process systems"
+                       data-de="Professionelle R&I-Planung mit COMOS (Siemens) für komplexe Prozesssysteme">
+                       Professional P&ID design using COMOS (Siemens) for complex process systems
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🧬</div>
+                    <h3 data-en="Biological Process Modeling" data-de="Biologische Prozessmodellierung">Biological Process Modeling</h3>
+                    <p data-en="Mathematical modeling using BioWin, SUMO, GPS-X for biological treatment optimization"
+                       data-de="Mathematische Modellierung mit BioWin, SUMO, GPS-X für die Optimierung biologischer Behandlung">
+                       Mathematical modeling using BioWin, SUMO, GPS-X for biological treatment optimization
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Technical Expertise" data-de="Technische Expertise">Technical Expertise</h2>
+                <p data-en="Specialized skills and technologies for modern process engineering" 
+                   data-de="Spezialisierte Fähigkeiten und Technologien für moderne Verfahrenstechnik">
+                   Specialized skills and technologies for modern process engineering
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3 data-en="Software & Tools" data-de="Software & Tools">Software & Tools</h3>
+                    <p data-en="COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly"
+                       data-de="COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly">
+                       COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3 data-en="International Experience" data-de="Internationale Erfahrung">International Experience</h3>
+                    <p data-en="Germany, Singapore, Turkey, Vietnam, Japan - Diverse regulatory and technical standards"
+                       data-de="Deutschland, Singapur, Türkei, Vietnam, Japan - Vielfältige regulatorische und technische Standards">
+                       Germany, Singapore, Turkey, Vietnam, Japan - Diverse regulatory and technical standards
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎓</div>
+                    <h3 data-en="Education" data-de="Ausbildung">Education</h3>
+                    <p data-en="Master's in Environmental Engineering, Technical University of Munich (TUM)"
+                       data-de="Master in Umwelttechnik, Technische Universität München (TUM)">
+                       Master's in Environmental Engineering, Technical University of Munich (TUM)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Contact & Download" data-de="Kontakt & Download">Contact & Download</h2>
+                <p data-en="Get in touch for consulting opportunities or download my professional documents" 
+                   data-de="Kontaktieren Sie mich für Beratungsmöglichkeiten oder laden Sie meine professionellen Dokumente herunter">
+                   Get in touch for consulting opportunities or download my professional documents
+                </p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 data-en="Contact Information" data-de="Kontaktinformationen">Contact Information</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong data-en="Location" data-de="Standort">Location</strong><br>
+                            <span data-en="Brunswick, Germany" data-de="Braunschweig, Deutschland">Brunswick, Germany</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong data-en="Email" data-de="E-Mail">Email</strong><br>
+                            <a href="mailto:nguyenanhthang@outlook.de">nguyenanhthang@outlook.de</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong data-en="Phone" data-de="Telefon">Phone</strong><br>
+                            <a href="tel:+491633680862">+49 163 368 0862</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div>
+                            <strong data-en="Languages" data-de="Sprachen">Languages</strong><br>
+                            <span data-en="English, German, Vietnamese" data-de="Englisch, Deutsch, Vietnamesisch">English, German, Vietnamese</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="download-section">
+                    <h3 data-en="Professional Documents" data-de="Professionelle Dokumente">Professional Documents</h3>
+                    <p data-en="Download my CV and portfolio for detailed information about my experience and projects."
+                       data-de="Laden Sie meinen Lebenslauf und mein Portfolio für detaillierte Informationen über meine Erfahrungen und Projekte herunter.">
+                       Download my CV and portfolio for detailed information about my experience and projects.
+                    </p>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="#" class="btn btn-primary" data-en="Download CV (PDF)" data-de="Lebenslauf herunterladen (PDF)">Download CV (PDF)</a>
+                        <a href="#" class="btn btn-secondary" data-en="Download Portfolio" data-de="Portfolio herunterladen">Download Portfolio</a>
+                    </div>
+                    
+                    <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                        <span data-en="Available in English and German" data-de="Verfügbar in Englisch und Deutsch">Available in English and German</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-en="© 2025 Thang Nguyen. Professional Environmental Process Engineer." 
+               data-de="© 2025 Thang Nguyen. Professioneller Umweltverfahrensingenieur.">
+               © 2025 Thang Nguyen. Professional Environmental Process Engineer.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLanguage = 'en';
+        
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button states
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            
+            // Update all text elements
+            const elements = document.querySelectorAll('[data-en][data-de]');
+            elements.forEach(element => {
+                const text = element.getAttribute('data-' + lang);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Save preference
+            localStorage.setItem('preferred-language', lang);
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+        
+        // Smooth scrolling and active nav
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved language preference
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang && savedLang !== 'en') {
+                switchLanguage(savedLang);
+            }
+            
+            // Navigation highlighting
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.pageYOffset >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('nav-menu').classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
