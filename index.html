@@ -391,27 +391,28 @@
             }
 	    /* CV Download Button Styling */
 	    .nav-link.cv-download {
-	    	background: linear-gradient(135deg, #2c5282, #3182ce);
-	    	color: white !important;
-	    	border-radius: 25px;
-	    	padding: 12px 20px !important;
-	    	margin-left: 15px;
-	    	transition: all 0.3s ease;
-	    	border: 2px solid transparent;
+                color: white;
+		background: none;
+		border: none;
+		padding: 20px 15px;
+		display: block;
+		transition: all 0.3s ease;
+		border-bottom: 3px solid transparent;
+		font-weight: 500;
+		text-decoration: none;
 	    }
 	
 	   .nav-link.cv-download:hover {
-	        background: linear-gradient(135deg, #1e40af, #3b82f6);
-	        transform: translateY(-2px);
-	        box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3);
-	        border-color: rgba(255,255,255,0.2);
+	        background-color: rgba(255,255,255,0.1);
+	        border-bottom-color: #63b3ed;
+
 	    }
 	/* Mobile responsive for CV button */
 	@media (max-width: 768px) {
     	    .nav-link.cv-download {
-               margin-left: 0;
-               margin-top: 10px;
-               text-align: center;
+               border-right: none;
+               border-bottom: 1px solid rgba(255,255,255,0.1);
+               
             }
 
         }
