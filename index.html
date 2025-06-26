@@ -359,7 +359,7 @@
                 transition: 0.3s;
                 box-shadow: 0 10px 27px rgba(0,0,0,0.05);
             }
-            
+        }    
             .nav-menu.active {
                 left: 0;
             }
@@ -389,6 +389,31 @@
             .language-toggle {
                 margin-top: 10px;
             }
+	    /* CV Download Button Styling */
+	    .nav-link.cv-download {
+	    	background: linear-gradient(135deg, #2c5282, #3182ce);
+	    	color: white !important;
+	    	border-radius: 25px;
+	    	padding: 12px 20px !important;
+	    	margin-left: 15px;
+	    	transition: all 0.3s ease;
+	    	border: 2px solid transparent;
+	    }
+	
+	   .nav-link.cv-download:hover {
+	        background: linear-gradient(135deg, #1e40af, #3b82f6);
+	        transform: translateY(-2px);
+	        box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3);
+	        border-color: rgba(255,255,255,0.2);
+	    }
+	/* Mobile responsive for CV button */
+	@media (max-width: 768px) {
+    	    .nav-link.cv-download {
+               margin-left: 0;
+               margin-top: 10px;
+               text-align: center;
+            }
+
         }
         
         /* Smooth scrolling */
@@ -431,8 +456,11 @@
                 <li class="nav-item">
                     <a href="#contact" class="nav-link" data-en="Contact" data-de="Kontakt">Contact</a>
                 </li>
+		<li class="nav-item">
+       		    <a href="CV_Thang_Nguyen_EN.pdf" download class="nav-link cv-download" data-en="Download CV" data-de="CV Herunterladen">Download CV</a>
+    		</li>    
             </ul>
-            
+	
             <div class="language-toggle">
                 <button onclick="switchLanguage('en')" id="btn-en" class="active">EN</button>
                 <button onclick="switchLanguage('de')" id="btn-de">DE</button>
