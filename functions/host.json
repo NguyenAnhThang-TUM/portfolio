@@ -1,7 +1,3 @@
-// ==================================================
-// FILE: host.json (Root folder)
-// This configures the Azure Functions runtime
-// ==================================================
 {
   "version": "2.0",
   "logging": {
