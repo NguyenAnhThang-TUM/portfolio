@@ -1,5 +1,4 @@
-# In rental-application-function/ folder
-echo '{
+{
   "name": "rental-application-function",
   "version": "1.0.0",
   "description": "Azure Function for rental application processing",
@@ -14,4 +13,4 @@ echo '{
   "devDependencies": {
     "azure-functions-core-tools": "^4.0.0"
   }
-}' > package.json
+}
