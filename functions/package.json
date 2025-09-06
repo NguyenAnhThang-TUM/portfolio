@@ -1,7 +1,3 @@
-// ==================================================
-// FILE: package.json (Root folder)
-// This tells Azure what dependencies to install
-// ==================================================
 {
   "name": "rental-application-function",
   "version": "1.0.0",
