@@ -1,1 +1,21 @@
-
+// ==================================================
+// FILE: rental-application/function.json
+// This configures the specific function (HTTP trigger)
+// ==================================================
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["post", "options"],
+      "route": "rental-application"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
