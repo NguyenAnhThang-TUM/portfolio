@@ -1,1 +1,20 @@
-
+// ==================================================
+// FILE: package.json (Root folder)
+// This tells Azure what dependencies to install
+// ==================================================
+{
+  "name": "rental-application-function",
+  "version": "1.0.0",
+  "description": "Azure Function for rental application processing",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.0"
+  }
+}
