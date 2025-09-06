@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Application Form - Braunschweig</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .property-info {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .property-info ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .property-info li {
+            margin-bottom: 8px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: normal;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #666;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input {
+            margin-right: 8px;
+            width: auto;
+        }
+        
+        textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        
+        .household-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .household-table th,
+        .household-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .household-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .household-table input {
+            border: none;
+            padding: 4px;
+            width: 100%;
+        }
+        
+        .declarations {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+        
+        .submit-btn {
+            background-color: #333;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .submit-btn:hover {
+            background-color: #555;
+        }
+
+        .submit-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            margin-left: 10px;
+        }
+        
+        .required {
+            color: red;
+        }
+
+        .status-message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Rental Application Form</h1>
+            <h2>Mieterselbstauskunft</h2>
+        </div>
+        
+<!--         <div class="property-info">
+            <strong>Property Information / Angaben zum Mietobjekt:</strong>
+            <ul>
+                <li><strong>Address / Adresse:</strong> Building 24DE, Celler Str., 38114 Braunschweig</li>
+                <li><strong>Condition / Zustand:</strong> Living space 60m² / Wohnfläche 60m², with balcony / mit Balkon, 1 built-in kitchen / 1 Einbauküche, 1 toilet / 1 WC, 2 rooms / 2 Zimmer</li>
+                <li><strong>Building / Gebäude:</strong> Has 2 lifts / Hat 2 Aufzüge</li>
+                <li><strong>Location / Lage:</strong> 5 minutes on foot to Rewe, DM, Saray Markt, Bus station / 5 Minuten zu Fuß zu Rewe, DM, Saray Markt, Bushaltestelle</li>
+                <li><strong>Location / Lage:</strong> 10 minutes on foot to the city hospital / 10 Minuten zu Fuß zum Stadtkrankenhaus</li>
+                <li><strong>Rent / Miete:</strong> Kaltmiete 720 Euro, Warmmiete 850 Euro</li>
+                <li><strong>Deposit / Kaution:</strong> 3 months Kaltmiete (2,160 Euro) / 3 Monate Kaltmiete (2.160 Euro)</li>
+            </ul>
+        </div> -->
+        <div class="property-info">
+            <strong style="display:block; margin-bottom:8px;">Property Information / Angaben zum Mietobjekt:</strong>
+            <ul>
+                <li><strong>Address / Adresse:</strong> Celler Str. 24DE, 38114 Braunschweig</li>
+                <li><strong>Living Space / Wohnfläche:</strong> 60 m² – bright 2-room apartment with balcony / helle 2-Zimmer-Wohnung mit Balkon</li>
+                <li><strong>Kitchen / Küche:</strong> Modern built-in kitchen / moderne Einbauküche</li>
+                <li><strong>Bathroom / Bad:</strong> 1 WC</li>
+                <li><strong>Building / Gebäude:</strong> Barrier-free with 2 elevators / barrierefrei mit 2 Aufzügen</li>
+                <li><strong>Location / Lage:</strong> 5 min walk to Rewe, DM, Saray Markt & bus stop / 5 Min. fußläufig zu Rewe, DM, Saray Markt & Bushaltestelle.
+                                                      10 min walk to city hospital / 10 Min. zu Fuß zum Städtischen Klinikum</li>
+                <li><strong>Rent / Miete:</strong> basic rent 720 € / Kaltmiete 720 €, total rent 850 € / Warmmiete 850 €</li>
+                <li><strong>Deposit / Kaution:</strong> 3 months basic rent (2,160 €) / 3 Monatskaltmieten (2.160 €)</li>
+            </ul>
+        </div>
+		
+        <div id="statusMessage" class="status-message"></div>
+        
+        <form id="rentalForm">
+            <!-- Rental Details -->
+            <div class="section">
+                <div class="section-title">Rental Details / Mietdetails</div>
+                <div class="form-group">
+                    <label for="moveInDate">Desired Move-in Date / Gewünschter Einzugstermin:</label>
+                    <input type="date" id="moveInDate" name="moveInDate">
+                </div>
+            </div>
+
+            <!-- Applicant Information -->
+            <div class="section">
+                <div class="section-title">Applicant Information / Mietinteressent/in</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="applicant_name">Name / Surname / Nachname <span class="required">*</span></label>
+                        <input type="text" id="applicant_name" name="applicant_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="applicant_firstname">First Name / Vorname <span class="required">*</span></label>
+                        <input type="text" id="applicant_firstname" name="applicant_firstname" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="applicant_dob">Date of Birth / Geburtsdatum <span class="required">*</span></label>
+                        <input type="date" id="applicant_dob" name="applicant_dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="applicant_nationality">Nationality / Nationalität <span class="required">*</span></label>
+                        <input type="text" id="applicant_nationality" name="applicant_nationality" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="applicant_marital">Marital Status / Familienstand:</label>
+                    <select id="applicant_marital" name="applicant_marital">
+                        <option value="">Please select / Bitte auswählen</option>
+                        <option value="single">Single / ledig</option>
+                        <option value="married">Married / verheiratet</option>
+                        <option value="divorced">Divorced / geschieden</option>
+                        <option value="widowed">Widowed / verwitwet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="applicant_address">Current Address / bisherige Anschrift:</label>
+                    <textarea id="applicant_address" name="applicant_address" placeholder="Street, House Number, Postal Code, City / Straße, Hausnummer, PLZ, Stadt"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="applicant_phone">Phone Private / Telefon privat:</label>
+                        <input type="tel" id="applicant_phone" name="applicant_phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="applicant_mobile">Mobile Phone / Telefon mobil <span class="required">*</span></label>
+                        <input type="tel" id="applicant_mobile" name="applicant_mobile" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="applicant_email">Email Address / E-Mail-Adresse <span class="required">*</span></label>
+                    <input type="email" id="applicant_email" name="applicant_email" required>
+                </div>
+            </div>
+
+            <!-- Employment Information -->
+            <div class="section">
+                <div class="section-title">Employment Information / Berufstätigkeit</div>
+                <div class="form-group">
+                    <label for="employer">Current Employer / derzeitiger Arbeitgeber:</label>
+                    <textarea id="employer" name="employer" placeholder="Company name, address, phone / Firmenname, Adresse, Telefon"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employment_since">Employed since / beschäftigt seit:</label>
+                        <input type="date" id="employment_since" name="employment_since">
+                    </div>
+                    <div class="form-group">
+                        <label for="job_title">Current Job Title / derzeitig ausgeübter Beruf:</label>
+                        <input type="text" id="job_title" name="job_title">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="self_employed">Self-employed as / selbstständig als:</label>
+                        <input type="text" id="self_employed" name="self_employed">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthly_income">Monthly Net Income EUR / monatliches Nettoeinkommen EUR <span class="required">*</span></label>
+                        <input type="number" id="monthly_income" name="monthly_income" required>
+                    </div>
+                </div>
+                
+                <!-- Ukrainian Financial Aid -->
+                <div class="form-group">
+                    <label for="ukrainian_aid">For Ukrainian: Financial aid from the state / Für Ukrainer: Finanzielle Unterstützung vom Staat:</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ukrainian_aid_amount">Amount per month (EUR) / Betrag pro Monat (EUR):</label>
+                            <input type="number" id="ukrainian_aid_amount" name="ukrainian_aid_amount">
+                        </div>
+                        <div class="form-group">
+                            <label>With proof / mit Nachweis:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="ukrainian_aid_proof" value="yes">
+                                    Yes / Ja
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="ukrainian_aid_proof" value="no">
+                                    No / Nein
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Household Members -->
+            <div class="section">
+                <div class="section-title">Household Composition / Haushaltszusammensetzung</div>
+                <table class="household-table">
+                    <thead>
+                        <tr>
+                            <th>Surname<br>Nachname</th>
+                            <th>First Name(s)<br>Vorname(n)</th>
+                            <th>Relationship<br>Verwandtschaftsgrad</th>
+                            <th>Date of Birth<br>Geburtsdatum</th>
+                            <th>Net Income (EUR)<br>Nettoeinkommen (EUR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="household_name_1"></td>
+                            <td><input type="text" name="household_firstname_1"></td>
+                            <td><input type="text" name="household_relation_1"></td>
+                            <td><input type="date" name="household_dob_1"></td>
+                            <td><input type="number" name="household_income_1"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="household_name_2"></td>
+                            <td><input type="text" name="household_firstname_2"></td>
+                            <td><input type="text" name="household_relation_2"></td>
+                            <td><input type="date" name="household_dob_2"></td>
+                            <td><input type="number" name="household_income_2"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="household_name_3"></td>
+                            <td><input type="text" name="household_firstname_3"></td>
+                            <td><input type="text" name="household_relation_3"></td>
+                            <td><input type="date" name="household_dob_3"></td>
+                            <td><input type="number" name="household_income_3"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="household_name_4"></td>
+                            <td><input type="text" name="household_firstname_4"></td>
+                            <td><input type="text" name="household_relation_4"></td>
+                            <td><input type="date" name="household_dob_4"></td>
+                            <td><input type="number" name="household_income_4"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="household_name_5"></td>
+                            <td><input type="text" name="household_firstname_5"></td>
+                            <td><input type="text" name="household_relation_5"></td>
+                            <td><input type="date" name="household_dob_5"></td>
+                            <td><input type="number" name="household_income_5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Declarations -->
+            <div class="section">
+                <div class="section-title">Tenant Declaration / Mieterklärung</div>
+                <div class="declarations">
+                    <div class="form-group">
+                        <label for="moving_persons">Total Number of Occupants / Gesamtanzahl der Bewohner:</label>
+                        <input type="number" id="moving_persons" name="moving_persons" min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pets">Pet Ownership / Haustierhaltung:</label>
+                        <input type="text" id="pets" name="pets" placeholder="Type and number of pets / Art und Anzahl der Haustiere">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="current_tenancy_since">Current Tenancy Duration / derzeitiges Mietverhältnis besteht seit:</label>
+                        <input type="date" id="current_tenancy_since" name="current_tenancy_since">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tenancy Termination Status / Status der Mietvertragskündigung:</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="radio" name="termination_by" value="tenant">
+                                Terminated by Tenant / durch Mieter gekündigt
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="termination_by" value="landlord">
+                                Terminated by Landlord / durch Vermieter gekündigt
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="radio" name="termination_by" value="not_terminated">
+                                Not Terminated / nicht gekündigt
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="termination_reason">Reason for Termination / Kündigungsgrund:</label>
+                        <input type="text" id="termination_reason" name="termination_reason">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deposit_ability">Ability to Pay Security Deposit / Fähigkeit zur Kautionszahlung:</label>
+                        <input type="number" id="deposit_ability" name="deposit_ability" placeholder="2.160,00 EUR erforderlich / 2,160.00 EUR required">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents -->
+            <div class="section">
+                <div class="section-title">Required Documents / Erforderliche Unterlagen</div>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="debt_free_certificate">
+                        Rental Debt-Free Certificate / Mietschuldenfreiheitsbescheinigung
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="schufa_report">
+                        SCHUFA Credit Report / SCHUFA-Bonitätsauskunft
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="income_proof">
+                        Income Verification (Last 3 Salary Statements) / Einkommensnachweis (letzte 3 Gehaltsabrechnungen)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="ukrainian_aid_proof">
+                        Ukrainian State Aid Documentation / Nachweis ukrainische Staatsunterstützung
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="id_copy">
+                        Copy of Identity Document / Kopie Personalausweis/Reisepass
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="employment_contract">
+                        Employment Contract / Arbeitsvertrag
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="documents" value="bank_statements">
+                        Bank Statements (Last 3 Months) / Kontoauszüge (letzte 3 Monate)
+                    </label>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Submit Application / Bewerbung senden
+                    <span class="loading" id="loadingSpinner">⏳</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Configuration - Update this URL to your Azure Function endpoint
+        const BACKEND_URL = 'https://your-function-app.azurewebsites.net/api/rental-application';
+        
+        function showStatus(message, isError = false) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${isError ? 'error' : 'success'}`;
+            statusDiv.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+            
+            // Scroll to status message
+            statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function setLoading(isLoading) {
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            if (isLoading) {
+                submitBtn.disabled = true;
+                loadingSpinner.style.display = 'inline';
+                submitBtn.textContent = 'Sending... / Wird gesendet...';
+                submitBtn.appendChild(loadingSpinner);
+            } else {
+                submitBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
+                submitBtn.textContent = 'Submit Application / Bewerbung senden';
+            }
+        }
+
+        document.getElementById('rentalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            setLoading(true);
+            
+            try {
+                // Collect form data
+                const formData = new FormData(this);
+                const data = {};
+                
+                // Convert FormData to regular object
+                for (let [key, value] of formData.entries()) {
+                    if (data[key]) {
+                        // Handle multiple values (like checkboxes)
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                }
+                
+                // Add timestamp and property info
+                data.submission_timestamp = new Date().toISOString();
+                data.property = "Building 24DE, Celler Str., 38114 Braunschweig - 60m², Kaltmiete 720€, Warmmiete 850€";
+                
+                // Validate required fields
+                if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
+                    showStatus('Please fill in all required fields / Bitte füllen Sie alle Pflichtfelder aus', true);
+                    setLoading(false);
+                    return;
+                }
+
+                // Try backend submission first
+                try {
+                    const response = await fetch(BACKEND_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        showStatus('Application submitted successfully! You will receive a confirmation email shortly. / Bewerbung erfolgreich eingereicht! Sie erhalten in Kürze eine Bestätigungs-E-Mail.', false);
+                        
+                        // Clear form after successful submission
+                        this.reset();
+                        setLoading(false);
+                        return;
+                    } else {
+                        throw new Error('Backend submission failed');
+                    }
+                } catch (backendError) {
+                    console.log('Backend not available, falling back to email method');
+                    
+                    // Fallback to mailto method
+                    const emailContent = formatEmailContent(data);
+                    const subject = `Rental Application - Braunschweig - ${data.applicant_firstname} ${data.applicant_name}`;
+                    const mailtoLink = `mailto:am.nguyen@outlook.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailContent)}`;
+                    
+                    // Create downloadable JSON file
+                    const jsonString = JSON.stringify(data, null, 2);
+                    const blob = new Blob([jsonString], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `rental-application-${data.applicant_name.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    
+                    // Open email client
+                    window.location.href = mailtoLink;
+                    
+                    showStatus('Application data prepared! Email client opened and JSON file downloaded. / Bewerbungsdaten vorbereitet! E-Mail-Client geöffnet und JSON-Datei heruntergeladen.', false);
+                }
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                showStatus('Error submitting application. Please try again. / Fehler beim Einreichen der Bewerbung. Bitte versuchen Sie es erneut.', true);
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        function formatEmailContent(data) {
+            let content = `New Rental Application for Braunschweig Apartment\n\n`;
+            content += `Property: Building 24DE, Celler Str., 38114 Braunschweig\n`;
+            content += `60m² apartment, Kaltmiete 720€, Warmmiete 850€, Deposit: 2,160€\n`;
+            content += `Submission Date: ${new Date().toLocaleString('de-DE')}\n\n`;
+            
+            content += `=== APPLICANT INFORMATION ===\n`;
+            content += `Name: ${data.applicant_firstname || ''} ${data.applicant_name || ''}\n`;
+            content += `Date of Birth: ${data.applicant_dob || ''}\n`;
+            content += `Nationality: ${data.applicant_nationality || ''}\n`;
+            content += `Email: ${data.applicant_email || ''}\n`;
+            content += `Mobile: ${data.applicant_mobile || ''}\n`;
+            if (data.applicant_phone) content += `Phone: ${data.applicant_phone}\n`;
+            content += `Current Address: ${data.applicant_address || ''}\n`;
+            content += `Marital Status: ${data.applicant_marital || ''}\n\n`;
+            
+            content += `=== EMPLOYMENT & INCOME ===\n`;
+            content += `Employer: ${data.employer || ''}\n`;
+            content += `Job Title: ${data.job_title || ''}\n`;
+            content += `Employed Since: ${data.employment_since || ''}\n`;
+            if (data.self_employed) content += `Self-employed as: ${data.self_employed}\n`;
+            content += `Monthly Net Income: €${data.monthly_income || ''}\n`;
+            
+            if (data.ukrainian_aid_amount) {
+                content += `Ukrainian State Aid: €${data.ukrainian_aid_amount}/month\n`;
+                content += `Aid Proof Available: ${data.ukrainian_aid_proof || ''}\n`;
+            }
+            content += `\n`;
+            
+            content += `=== RENTAL DETAILS ===\n`;
+            content += `Desired Move-in Date: ${data.moveInDate || ''}\n`;
+            content += `Number of Persons: ${data.moving_persons || ''}\n`;
+            content += `Pets: ${data.pets || 'None specified'}\n`;
+            content += `Can Pay Deposit: €${data.deposit_ability || ''}\n`;
+            if (data.current_tenancy_since) content += `Current Tenancy Since: ${data.current_tenancy_since}\n`;
+            if (data.termination_by) content += `Termination Status: ${data.termination_by}\n`;
+            if (data.termination_reason) content += `Termination Reason: ${data.termination_reason}\n`;
+            content += `\n`;
+            
+            // Add household members if any
+            let householdMembers = [];
+            for (let i = 1; i <= 5; i++) {
+                if (data[`household_name_${i}`] || data[`household_firstname_${i}`]) {
+                    householdMembers.push(`${data[`household_firstname_${i}`] || ''} ${data[`household_name_${i}`] || ''} (${data[`household_relation_${i}`] || ''}, DOB: ${data[`household_dob_${i}`] || ''}, Income: €${data[`household_income_${i}`] || '0'})`);
+                }
+            }
+            if (householdMembers.length > 0) {
+                content += `=== HOUSEHOLD MEMBERS ===\n`;
+                householdMembers.forEach(member => content += member + '\n');
+                content += `\n`;
+            }
+            
+            // Add documents
+            const selectedDocs = Array.isArray(data.documents) ? data.documents : (data.documents ? [data.documents] : []);
+            if (selectedDocs.length > 0) {
+                content += `=== DOCUMENTS TO BE PROVIDED ===\n`;
+                selectedDocs.forEach(doc => {
+                    const docLabels = {
+                        'debt_free_certificate': 'Rental Debt-Free Certificate',
+                        'schufa_report': 'SCHUFA Credit Report',
+                        'income_proof': 'Income Verification (Last 3 Salary Statements)',
+                        'ukrainian_aid_proof': 'Ukrainian State Aid Documentation',
+                        'id_copy': 'Copy of Identity Document',
+                        'employment_contract': 'Employment Contract',
+                        'bank_statements': 'Bank Statements (Last 3 Months)'
+                    };
+                    content += `- ${docLabels[doc] || doc}\n`;
+                });
+                content += `\n`;
+            }
+            
+            content += `=== CONTACT FOR VIEWING ===\n`;
+            content += `Email: ${data.applicant_email || ''}\n`;
+            content += `Phone: ${data.applicant_mobile || ''}\n\n`;
+            
+            content += `Full application data is available in JSON format upon request.\n`;
+            
+            return content;
+        }
+    </script>
+</body>
+</html>
