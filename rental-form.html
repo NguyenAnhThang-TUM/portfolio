@@ -598,6 +598,31 @@
                     return;
                 }
 
+				// Additional validation for new required fields
+				if (!data.moveInDate || !data.moving_persons) {
+				    showStatus('Please fill in Desired Move-in Date and Total Number of Occupants / Bitte füllen Sie Gewünschter Einzugstermin und Gesamtanzahl der Bewohner aus', true);
+				    setLoading(false);
+				    return;
+				}
+				
+				// Check if required documents are selected
+				const selectedDocs = Array.isArray(data.documents) ? data.documents : (data.documents ? [data.documents] : []);
+				const requiredDocs = ['income_proof', 'id_copy', 'employment_contract', 'bank_statements'];
+				const missingDocs = requiredDocs.filter(doc => !selectedDocs.includes(doc));
+				
+				if (missingDocs.length > 0) {
+				    const docLabels = {
+				        'income_proof': 'Income Verification (Last 3 Salary Statements)',
+				        'id_copy': 'Copy of Identity Document', 
+				        'employment_contract': 'Employment Contract',
+				        'bank_statements': 'Bank Statements (Last 3 Months)'
+				    };
+				    const missingDocNames = missingDocs.map(doc => docLabels[doc]).join(', ');
+				    showStatus(`Please select these required documents: ${missingDocNames} / Bitte wählen Sie diese erforderlichen Dokumente aus`, true);
+				    setLoading(false);
+				    return;
+				}
+				
                 // Try backend submission first
                 try {
                     const response = await fetch(BACKEND_URL, {
