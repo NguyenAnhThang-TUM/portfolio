@@ -241,6 +241,26 @@
                 padding: 15px;
             }
         }
+    /* Add to your existing CSS */
+        @media print {
+            .container {
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+            
+            .form-row {
+                break-inside: avoid;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+            
+            .household-table {
+                break-inside: avoid;
+            }
+        }
     </style>
 </head>
 <body>
