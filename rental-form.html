@@ -624,6 +624,20 @@
 				        'bank_statements': 'Bank Statements (Last 3 Months)'
 				    };
 				    const missingDocNames = missingDocs.map(doc => docLabels[doc]).join(', ');
+				    showStatus(`Please select these required documents: ${missingDocNames}`, true);
+				    setLoading(false);
+				    return;
+				}
+				
+				
+				if (missingDocs.length > 0) {
+				    const docLabels = {
+				        'income_proof': 'Income Verification (Last 3 Salary Statements)',
+				        'id_copy': 'Copy of Identity Document', 
+				        'employment_contract': 'Employment Contract',
+				        'bank_statements': 'Bank Statements (Last 3 Months)'
+				    };
+				    const missingDocNames = missingDocs.map(doc => docLabels[doc]).join(', ');
 				    showStatus(`Please select these required documents: ${missingDocNames} / Bitte wählen Sie diese erforderlichen Dokumente aus`, true);
 				    setLoading(false);
 				    return;
