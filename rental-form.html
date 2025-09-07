@@ -599,8 +599,14 @@
                 }
 
 				// Additional validation for new required fields
-				if (!data.moveInDate || !data.moving_persons) {
-				    showStatus('Please fill in Desired Move-in Date and Total Number of Occupants / Bitte füllen Sie Gewünschter Einzugstermin und Gesamtanzahl der Bewohner aus', true);
+				if (!data.moveInDate) {
+				    showStatus('Please fill in Desired Move-in Date / Bitte füllen Sie Gewünschter Einzugstermin', true);
+				    setLoading(false);
+				    return;
+				}
+				// Additional validation for new required fields
+				if (!data.moving_persons) {
+				    showStatus('Please fill in Total Number of Occupants / Bitte füllen Sie Gesamtanzahl der Bewohner aus', true);
 				    setLoading(false);
 				    return;
 				}
