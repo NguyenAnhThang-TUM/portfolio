@@ -681,4 +681,45 @@
             content += `\n`;
             
             // Add household members if any
-            let householdMem
+            let householdMembers = [];
+            for (let i = 1; i <= 5; i++) {
+                if (data[`household_name_${i}`] || data[`household_firstname_${i}`]) {
+                    householdMembers.push(`${data[`household_firstname_${i}`] || ''} ${data[`household_name_${i}`] || ''} (${data[`household_relation_${i}`] || ''}, DOB: ${data[`household_dob_${i}`] || ''}, Income: €${data[`household_income_${i}`] || '0'})`);
+                }
+            }
+            if (householdMembers.length > 0) {
+                content += `=== HOUSEHOLD MEMBERS ===\n`;
+                householdMembers.forEach(member => content += member + '\n');
+                content += `\n`;
+            }
+            
+            // Add documents
+            const selectedDocs = Array.isArray(data.documents) ? data.documents : (data.documents ? [data.documents] : []);
+            if (selectedDocs.length > 0) {
+                content += `=== DOCUMENTS TO BE PROVIDED ===\n`;
+                selectedDocs.forEach(doc => {
+                    const docLabels = {
+                        'debt_free_certificate': 'Rental Debt-Free Certificate',
+                        'schufa_report': 'SCHUFA Credit Report',
+                        'income_proof': 'Income Verification (Last 3 Salary Statements)',
+                        'ukrainian_aid_proof': 'Ukrainian State Aid Documentation',
+                        'id_copy': 'Copy of Identity Document',
+                        'employment_contract': 'Employment Contract',
+                        'bank_statements': 'Bank Statements (Last 3 Months)'
+                    };
+                    content += `- ${docLabels[doc] || doc}\n`;
+                });
+                content += `\n`;
+            }
+            
+            content += `=== CONTACT FOR VIEWING ===\n`;
+            content += `Email: ${data.applicant_email || ''}\n`;
+            content += `Phone: ${data.applicant_mobile || ''}\n\n`;
+            
+            content += `Full application data is available in JSON format upon request.\n`;
+            
+            return content;
+        }
+    </script>
+</body>
+</html>
