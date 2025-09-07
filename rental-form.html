@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Application Form - Braunschweig</title>
+    <!-- Add jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -42,12 +44,12 @@
             padding: 20px;
             margin: 20px 0;
             border: 1px solid #ddd;
+            line-height: 1.6;
         }
         
         .property-info ul {
             list-style-type: disc;
             margin-left: 20px;
-            line-height: 1.6;
         }
         
         .property-info li {
@@ -171,14 +173,18 @@
             border-top: 1px solid #ccc;
         }
         
-        .submit-btn {
-            background-color: #333;
-            color: white;
+        .btn {
             padding: 12px 30px;
             border: none;
             font-size: 16px;
             cursor: pointer;
-            position: relative;
+            margin: 5px;
+            border-radius: 4px;
+        }
+        
+        .submit-btn {
+            background-color: #333;
+            color: white;
         }
         
         .submit-btn:hover {
@@ -188,6 +194,15 @@
         .submit-btn:disabled {
             background-color: #ccc;
             cursor: not-allowed;
+        }
+
+        .pdf-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .pdf-btn:hover {
+            background-color: #c82333;
         }
 
         .loading {
@@ -236,33 +251,20 @@
             <h2>Mieterselbstauskunft</h2>
         </div>
         
-<!--         <div class="property-info">
-            <strong>Property Information / Angaben zum Mietobjekt:</strong>
-            <ul>
-                <li><strong>Address / Adresse:</strong> Building 24DE, Celler Str., 38114 Braunschweig</li>
-                <li><strong>Condition / Zustand:</strong> Living space 60m² / Wohnfläche 60m², with balcony / mit Balkon, 1 built-in kitchen / 1 Einbauküche, 1 toilet / 1 WC, 2 rooms / 2 Zimmer</li>
-                <li><strong>Building / Gebäude:</strong> Has 2 lifts / Hat 2 Aufzüge</li>
-                <li><strong>Location / Lage:</strong> 5 minutes on foot to Rewe, DM, Saray Markt, Bus station / 5 Minuten zu Fuß zu Rewe, DM, Saray Markt, Bushaltestelle</li>
-                <li><strong>Location / Lage:</strong> 10 minutes on foot to the city hospital / 10 Minuten zu Fuß zum Stadtkrankenhaus</li>
-                <li><strong>Rent / Miete:</strong> Kaltmiete 720 Euro, Warmmiete 850 Euro</li>
-                <li><strong>Deposit / Kaution:</strong> 3 months Kaltmiete (2,160 Euro) / 3 Monate Kaltmiete (2.160 Euro)</li>
-            </ul>
-        </div> -->
         <div class="property-info">
             <strong style="display:block; margin-bottom:8px;">Property Information / Angaben zum Mietobjekt:</strong>
             <ul>
                 <li><strong>Address / Adresse:</strong> Celler Str. 24DE, 38114 Braunschweig</li>
-                <li><strong>Living Space / Wohnfläche:</strong> 60 m² – bright 2-room apartment with balcony / helle 2-Zimmer-Wohnung mit Balkon</li>
+                <li><strong>Living Space / Wohnfläche:</strong> 60 m² — bright 2-room apartment with balcony / helle 2-Zimmer-Wohnung mit Balkon</li>
                 <li><strong>Kitchen / Küche:</strong> Modern built-in kitchen / moderne Einbauküche</li>
                 <li><strong>Bathroom / Bad:</strong> 1 WC</li>
                 <li><strong>Building / Gebäude:</strong> Barrier-free with 2 elevators / barrierefrei mit 2 Aufzügen</li>
-                <li><strong>Location / Lage:</strong> 5 min walk to Rewe, DM, Saray Markt & bus stop / 5 Min. fußläufig zu Rewe, DM, Saray Markt & Bushaltestelle.
-                                                      10 min walk to city hospital / 10 Min. zu Fuß zum Städtischen Klinikum</li>
-                <li><strong>Rent / Miete:</strong> basic rent 720 € / Kaltmiete 720 €, total rent 850 € / Warmmiete 850 €</li>
-                <li><strong>Deposit / Kaution:</strong> 3 months basic rent (2,160 €) / 3 Monatskaltmieten (2.160 €)</li>
+                <li><strong>Location / Lage:</strong> 5 min walk to Rewe, DM, Saray Markt & bus stop / 5 Min. fußläufig zu Rewe, DM, Saray Markt & Bushaltestelle. 10 min walk to city hospital / 10 Min. zu Fuß zum Städtischen Klinikum</li>
+                <li><strong>Rent / Miete:</strong> Cold rent 720 € / Kaltmiete 720 €, Warm rent 850 € / Warmmiete 850 €</li>
+                <li><strong>Deposit / Kaution:</strong> 3 months cold rent (2,160 €) / 3 Monatskaltmieten (2.160 €)</li>
             </ul>
         </div>
-		
+        
         <div id="statusMessage" class="status-message"></div>
         
         <form id="rentalForm">
@@ -416,20 +418,6 @@
                             <td><input type="date" name="household_dob_3"></td>
                             <td><input type="number" name="household_income_3"></td>
                         </tr>
-                        <tr>
-                            <td><input type="text" name="household_name_4"></td>
-                            <td><input type="text" name="household_firstname_4"></td>
-                            <td><input type="text" name="household_relation_4"></td>
-                            <td><input type="date" name="household_dob_4"></td>
-                            <td><input type="number" name="household_income_4"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="household_name_5"></td>
-                            <td><input type="text" name="household_firstname_5"></td>
-                            <td><input type="text" name="household_relation_5"></td>
-                            <td><input type="date" name="household_dob_5"></td>
-                            <td><input type="number" name="household_income_5"></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -478,7 +466,7 @@
 
                     <div class="form-group">
                         <label for="deposit_ability">Ability to Pay Security Deposit / Fähigkeit zur Kautionszahlung:</label>
-                        <input type="number" id="deposit_ability" name="deposit_ability" placeholder="2.160,00 EUR erforderlich / 2,160.00 EUR required">
+                        <input type="number" id="deposit_ability" name="deposit_ability" placeholder="2,160.00 EUR required / 2.160,00 EUR erforderlich">
                     </div>
                 </div>
             </div>
@@ -519,7 +507,10 @@
             </div>
 
             <div class="submit-section">
-                <button type="submit" class="submit-btn" id="submitBtn">
+                <button type="button" class="btn pdf-btn" id="downloadPdfBtn">
+                    Download PDF / PDF herunterladen
+                </button>
+                <button type="submit" class="btn submit-btn" id="submitBtn">
                     Submit Application / Bewerbung senden
                     <span class="loading" id="loadingSpinner">⏳</span>
                 </button>
@@ -529,8 +520,7 @@
 
     <script>
         // Configuration - Update this URL to your Azure Function endpoint
-        const BACKEND_URL = 'https://rental-form-api-ahgzbbhkarecfvc0.germanywestcentral-01.azurewebsites.net/api/rental-application?';
-		
+        const BACKEND_URL = 'https://rental-form-api-ahgzbbhkarectvc0.germanywestcentral-01.azurewebsites.net/api/rental-application';
         
         function showStatus(message, isError = false) {
             const statusDiv = document.getElementById('statusMessage');
@@ -563,6 +553,211 @@
             }
         }
 
+        // PDF Generation Function
+        function generatePDF() {
+            // Collect form data
+            const formData = new FormData(document.getElementById('rentalForm'));
+            const data = {};
+            
+            // Convert FormData to regular object
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Validate required fields
+            if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
+                showStatus('Please fill in all required fields before generating PDF / Bitte füllen Sie alle Pflichtfelder aus', true);
+                return;
+            }
+
+            // Create PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            let yPos = 20;
+            const lineHeight = 7;
+            const margin = 20;
+
+            // Helper function to add text with line wrapping
+            function addText(text, x, y, maxWidth = 170) {
+                const lines = doc.splitTextToSize(text, maxWidth);
+                doc.text(lines, x, y);
+                return lines.length * lineHeight;
+            }
+
+            // Header
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            yPos += addText('RENTAL APPLICATION - MIETERSELBSTAUSKUNFT', margin, yPos);
+            yPos += 5;
+
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            yPos += addText('Property: Celler Str. 24DE, 38114 Braunschweig', margin, yPos);
+            yPos += addText('60m² apartment, Kaltmiete 720€, Warmmiete 850€', margin, yPos);
+            yPos += addText('Submission Date: ' + new Date().toLocaleDateString('de-DE'), margin, yPos);
+            yPos += 10;
+
+            // Applicant Information
+            doc.setFont(undefined, 'bold');
+            yPos += addText('APPLICANT INFORMATION / BEWERBERINFORMATIONEN', margin, yPos);
+            doc.setFont(undefined, 'normal');
+            yPos += 3;
+
+            yPos += addText(`Name: ${data.applicant_firstname || ''} ${data.applicant_name || ''}`, margin, yPos);
+            yPos += addText(`Date of Birth: ${data.applicant_dob || 'Not provided'}`, margin, yPos);
+            yPos += addText(`Nationality: ${data.applicant_nationality || 'Not provided'}`, margin, yPos);
+            yPos += addText(`Email: ${data.applicant_email || ''}`, margin, yPos);
+            yPos += addText(`Mobile: ${data.applicant_mobile || ''}`, margin, yPos);
+            if (data.applicant_phone) {
+                yPos += addText(`Phone: ${data.applicant_phone}`, margin, yPos);
+            }
+            yPos += addText(`Marital Status: ${data.applicant_marital || 'Not specified'}`, margin, yPos);
+            if (data.applicant_address) {
+                yPos += addText(`Current Address: ${data.applicant_address}`, margin, yPos);
+            }
+            yPos += 10;
+
+            // Employment Information
+            doc.setFont(undefined, 'bold');
+            yPos += addText('EMPLOYMENT & INCOME / BESCHÄFTIGUNG & EINKOMMEN', margin, yPos);
+            doc.setFont(undefined, 'normal');
+            yPos += 3;
+
+            if (data.employer) {
+                yPos += addText(`Employer: ${data.employer}`, margin, yPos);
+            }
+            if (data.job_title) {
+                yPos += addText(`Job Title: ${data.job_title}`, margin, yPos);
+            }
+            if (data.employment_since) {
+                yPos += addText(`Employed Since: ${data.employment_since}`, margin, yPos);
+            }
+            if (data.self_employed) {
+                yPos += addText(`Self-employed as: ${data.self_employed}`, margin, yPos);
+            }
+            yPos += addText(`Monthly Net Income: €${data.monthly_income || '0'}`, margin, yPos);
+
+            if (data.ukrainian_aid_amount) {
+                yPos += addText(`Ukrainian State Aid: €${data.ukrainian_aid_amount}/month`, margin, yPos);
+                yPos += addText(`Aid Proof Available: ${data.ukrainian_aid_proof || 'Not specified'}`, margin, yPos);
+            }
+            yPos += 10;
+
+            // Check if we need a new page
+            if (yPos > 250) {
+                doc.addPage();
+                yPos = 20;
+            }
+
+            // Rental Preferences
+            doc.setFont(undefined, 'bold');
+            yPos += addText('RENTAL PREFERENCES / MIETPRÄFERENZEN', margin, yPos);
+            doc.setFont(undefined, 'normal');
+            yPos += 3;
+
+            yPos += addText(`Desired Move-in Date: ${data.moveInDate || 'Flexible'}`, margin, yPos);
+            yPos += addText(`Number of Occupants: ${data.moving_persons || 'Not specified'}`, margin, yPos);
+            yPos += addText(`Pets: ${data.pets || 'None specified'}`, margin, yPos);
+            yPos += addText(`Deposit Payment Ability: €${data.deposit_ability || 'Not specified'}`, margin, yPos);
+
+            if (data.current_tenancy_since) {
+                yPos += addText(`Current Tenancy Since: ${data.current_tenancy_since}`, margin, yPos);
+            }
+            if (data.termination_by) {
+                const terminationLabels = {
+                    'tenant': 'Terminated by Tenant',
+                    'landlord': 'Terminated by Landlord',
+                    'not_terminated': 'Not Terminated'
+                };
+                yPos += addText(`Termination Status: ${terminationLabels[data.termination_by] || data.termination_by}`, margin, yPos);
+            }
+            if (data.termination_reason) {
+                yPos += addText(`Termination Reason: ${data.termination_reason}`, margin, yPos);
+            }
+            yPos += 10;
+
+            // Household Members
+            let householdMembers = [];
+            for (let i = 1; i <= 3; i++) {
+                if (data[`household_name_${i}`] || data[`household_firstname_${i}`]) {
+                    householdMembers.push(`${data[`household_firstname_${i}`] || ''} ${data[`household_name_${i}`] || ''} (${data[`household_relation_${i}`] || ''}, DOB: ${data[`household_dob_${i}`] || ''}, Income: €${data[`household_income_${i}`] || '0'})`);
+                }
+            }
+
+            if (householdMembers.length > 0) {
+                doc.setFont(undefined, 'bold');
+                yPos += addText('HOUSEHOLD MEMBERS / HAUSHALTSMITGLIEDER', margin, yPos);
+                doc.setFont(undefined, 'normal');
+                yPos += 3;
+
+                householdMembers.forEach((member, index) => {
+                    yPos += addText(`${index + 1}. ${member}`, margin, yPos);
+                });
+                yPos += 10;
+            }
+
+            // Documents to be provided
+            const selectedDocs = Array.isArray(data.documents) ? data.documents : (data.documents ? [data.documents] : []);
+            if (selectedDocs.length > 0) {
+                doc.setFont(undefined, 'bold');
+                yPos += addText('DOCUMENTS TO BE PROVIDED / BEREITZUSTELLENDE DOKUMENTE', margin, yPos);
+                doc.setFont(undefined, 'normal');
+                yPos += 3;
+
+                const docLabels = {
+                    'debt_free_certificate': 'Rental Debt-Free Certificate / Mietschuldenfreiheitsbescheinigung',
+                    'schufa_report': 'SCHUFA Credit Report / SCHUFA-Bonitätsauskunft',
+                    'income_proof': 'Income Verification (Last 3 Salary Statements) / Einkommensnachweis',
+                    'ukrainian_aid_proof': 'Ukrainian State Aid Documentation / Nachweis ukrainische Staatsunterstützung',
+                    'id_copy': 'Copy of Identity Document / Kopie Personalausweis/Reisepass',
+                    'employment_contract': 'Employment Contract / Arbeitsvertrag',
+                    'bank_statements': 'Bank Statements (Last 3 Months) / Kontoauszüge (letzte 3 Monate)'
+                };
+
+                selectedDocs.forEach(doc => {
+                    yPos += addText(`- ${docLabels[doc] || doc}`, margin, yPos);
+                });
+                yPos += 10;
+            }
+
+            // Contact Information
+            doc.setFont(undefined, 'bold');
+            yPos += addText('CONTACT FOR VIEWING / KONTAKT FÜR BESICHTIGUNG', margin, yPos);
+            doc.setFont(undefined, 'normal');
+            yPos += 3;
+
+            yPos += addText(`Email: ${data.applicant_email || ''}`, margin, yPos);
+            yPos += addText(`Phone: ${data.applicant_mobile || ''}`, margin, yPos);
+            yPos += 10;
+
+            // Footer
+            doc.setFontSize(10);
+            yPos += addText('This rental application was generated on ' + new Date().toLocaleString('de-DE'), margin, yPos);
+            yPos += addText('Diese Mietbewerbung wurde erstellt am ' + new Date().toLocaleString('de-DE'), margin, yPos);
+
+            // Generate filename
+            const applicantName = `${data.applicant_firstname || 'applicant'}-${data.applicant_name || 'unknown'}`.toLowerCase().replace(/[^a-z0-9\-]/g, '');
+            const dateStr = new Date().toISOString().split('T')[0];
+            const filename = `rental-application-${applicantName}-${dateStr}.pdf`;
+
+            // Save the PDF
+            doc.save(filename);
+
+            showStatus('PDF downloaded successfully! / PDF erfolgreich heruntergeladen!', false);
+        }
+
+        // Event listeners
+        document.getElementById('downloadPdfBtn').addEventListener('click', generatePDF);
+
         document.getElementById('rentalForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -589,7 +784,7 @@
                 
                 // Add timestamp and property info
                 data.submission_timestamp = new Date().toISOString();
-                data.property = "Building 24DE, Celler Str., 38114 Braunschweig - 60m², Kaltmiete 720€, Warmmiete 850€";
+                data.property = "Celler Str. 24DE, 38114 Braunschweig - 60m², Kaltmiete 720€, Warmmiete 850€";
                 
                 // Validate required fields
                 if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
@@ -640,7 +835,7 @@
                     // Open email client
                     window.location.href = mailtoLink;
                     
-                    showStatus('Application data prepared! Email client opened and JSON file downloaded. / Bewerbungsdaten vorbereitet! E-Mail-Client geöffnet und JSON-Datei heruntergeladen.', false);
+                    showStatus('Application data prepared! Email client opened and JSON file downloaded. Please also attach the PDF file if you downloaded it. / Bewerbungsdaten vorbereitet! E-Mail-Client geöffnet und JSON-Datei heruntergeladen. Bitte fügen Sie auch die PDF-Datei hinzu, falls Sie sie heruntergeladen haben.', false);
                 }
                 
             } catch (error) {
@@ -653,7 +848,7 @@
 
         function formatEmailContent(data) {
             let content = `New Rental Application for Braunschweig Apartment\n\n`;
-            content += `Property: Building 24DE, Celler Str., 38114 Braunschweig\n`;
+            content += `Property: Celler Str. 24DE, 38114 Braunschweig\n`;
             content += `60m² apartment, Kaltmiete 720€, Warmmiete 850€, Deposit: 2,160€\n`;
             content += `Submission Date: ${new Date().toLocaleString('de-DE')}\n\n`;
             
@@ -692,7 +887,7 @@
             
             // Add household members if any
             let householdMembers = [];
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 3; i++) {
                 if (data[`household_name_${i}`] || data[`household_firstname_${i}`]) {
                     householdMembers.push(`${data[`household_firstname_${i}`] || ''} ${data[`household_name_${i}`] || ''} (${data[`household_relation_${i}`] || ''}, DOB: ${data[`household_dob_${i}`] || ''}, Income: €${data[`household_income_${i}`] || '0'})`);
                 }
@@ -726,6 +921,7 @@
             content += `Email: ${data.applicant_email || ''}\n`;
             content += `Phone: ${data.applicant_mobile || ''}\n\n`;
             
+            content += `NOTE: Applicant may also provide a PDF version of this application.\n`;
             content += `Full application data is available in JSON format upon request.\n`;
             
             return content;
