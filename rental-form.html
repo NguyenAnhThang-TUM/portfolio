@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Application Form - Braunschweig</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -586,152 +586,59 @@
             }
         }
         // PDF Generation Function
-        function generatePDF() {
-            // Collect form data
-            const formData = new FormData(document.getElementById('rentalForm'));
-            const data = {};
-    
-            // Convert FormData to regular object
-            for (let [key, value] of formData.entries()) {
-                if (data[key]) {
-                    if (Array.isArray(data[key])) {
-                        data[key].push(value);
-                    } else {
-                        data[key] = [data[key], value];
-                    }
-                } else {
-                    data[key] = value;
-                }
-            }
-        document.getElementById('rentalForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            setLoading(true);
-            
-            try {
-                // Collect form data
-                const formData = new FormData(this);
-                const data = {};
-                
-                // Convert FormData to regular object
-                for (let [key, value] of formData.entries()) {
-                    if (data[key]) {
-                        // Handle multiple values (like checkboxes)
-                        if (Array.isArray(data[key])) {
-                            data[key].push(value);
-                        } else {
-                            data[key] = [data[key], value];
-                        }
-                    } else {
-                        data[key] = value;
-                    }
-                }
+		function generatePDF() {
+		    // Validate required fields first
+		    const formData = new FormData(document.getElementById('rentalForm'));
+		    const data = {};
+		    for (let [key, value] of formData.entries()) {
+		        data[key] = value;
+		    }
+		
+		    if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
+		        showStatus('Please fill in all required fields before generating PDF / Bitte füllen Sie alle Pflichtfelder aus', true);
+		        return;
+		    }
+		
+		    // Temporarily hide the buttons during PDF generation
+		    const submitSection = document.querySelector('.submit-section');
+		    const originalDisplay = submitSection.style.display;
+		    submitSection.style.display = 'none';
+		
+		    // Configure PDF options
+		    const options = {
+		        margin: 0.5,
+		        filename: `rental-application-${data.applicant_firstname.toLowerCase()}-${data.applicant_name.toLowerCase()}-${new Date().toISOString().split('T')[0]}.pdf`,
+		        image: { type: 'jpeg', quality: 0.98 },
+		        html2canvas: { 
+		            scale: 2,
+		            useCORS: true,
+		            letterRendering: true 
+		        },
+		        jsPDF: { 
+		            unit: 'in', 
+		            format: 'a4', 
+		            orientation: 'portrait' 
+		        }
+		    };
+		
+		    // Generate PDF from the entire container
+		    html2pdf()
+		        .set(options)
+		        .from(document.querySelector('.container'))
+		        .save()
+		        .then(() => {
+		            // Restore buttons after PDF generation
+		            submitSection.style.display = originalDisplay;
+		            showStatus('PDF downloaded successfully! / PDF erfolgreich heruntergeladen!', false);
+		        })
+		        .catch((error) => {
+		            // Restore buttons even if there's an error
+		            submitSection.style.display = originalDisplay;
+		            showStatus('Error generating PDF / Fehler beim Erstellen der PDF', true);
+		            console.error('PDF generation error:', error);
+		        });
+		}
 
-                    // Validate required fields
-                if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
-                    showStatus('Please fill in all required fields before generating PDF / Bitte füllen Sie alle Pflichtfelder aus', true);
-                    return;
-                }
-            
-                // Create PDF using jsPDF
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                
-                let yPos = 20;
-                const lineHeight = 7;
-                const margin = 20;
-            
-                // Helper function to add text with line wrapping
-                function addText(text, x, y, maxWidth = 170) {
-                    const lines = doc.splitTextToSize(text, maxWidth);
-                    doc.text(lines, x, y);
-                    return lines.length * lineHeight;
-                }
-            
-                // Header
-                doc.setFontSize(18);
-                doc.setFont(undefined, 'bold');
-                yPos += addText('RENTAL APPLICATION - MIETERSELBSTAUSKUNFT', margin, yPos);
-                yPos += 5;
-            
-                doc.setFontSize(12);
-                doc.setFont(undefined, 'normal');
-                yPos += addText('Property: Celler Str. 24DE, 38114 Braunschweig', margin, yPos);
-                yPos += addText('60m² apartment, Kaltmiete 720€, Warmmiete 850€', margin, yPos);
-                yPos += addText('Submission Date: ' + new Date().toLocaleDateString('de-DE'), margin, yPos);
-                yPos += 10;
-            
-                // Applicant Information
-                doc.setFont(undefined, 'bold');
-                yPos += addText('APPLICANT INFORMATION / BEWERBERINFORMATIONEN', margin, yPos);
-                doc.setFont(undefined, 'normal');
-                yPos += 3;
-            
-                yPos += addText(`Name: ${data.applicant_firstname || ''} ${data.applicant_name || ''}`, margin, yPos);
-                yPos += addText(`Date of Birth: ${data.applicant_dob || 'Not provided'}`, margin, yPos);
-                yPos += addText(`Nationality: ${data.applicant_nationality || 'Not provided'}`, margin, yPos);
-                yPos += addText(`Email: ${data.applicant_email || ''}`, margin, yPos);
-                yPos += addText(`Mobile: ${data.applicant_mobile || ''}`, margin, yPos);
-                if (data.applicant_phone) {
-                    yPos += addText(`Phone: ${data.applicant_phone}`, margin, yPos);
-                }
-                yPos += addText(`Marital Status: ${data.applicant_marital || 'Not specified'}`, margin, yPos);
-                if (data.applicant_address) {
-                    yPos += addText(`Current Address: ${data.applicant_address}`, margin, yPos);
-                }
-                yPos += 10;
-            
-                // Employment Information
-                doc.setFont(undefined, 'bold');
-                yPos += addText('EMPLOYMENT & INCOME / BESCHÄFTIGUNG & EINKOMMEN', margin, yPos);
-                doc.setFont(undefined, 'normal');
-                yPos += 3;
-            
-                if (data.employer) {
-                    yPos += addText(`Employer: ${data.employer}`, margin, yPos);
-                }
-                if (data.job_title) {
-                    yPos += addText(`Job Title: ${data.job_title}`, margin, yPos);
-                }
-                if (data.employment_since) {
-                    yPos += addText(`Employed Since: ${data.employment_since}`, margin, yPos);
-                }
-                if (data.self_employed) {
-                    yPos += addText(`Self-employed as: ${data.self_employed}`, margin, yPos);
-                }
-                yPos += addText(`Monthly Net Income: €${data.monthly_income || '0'}`, margin, yPos);
-            
-                if (data.ukrainian_aid_amount) {
-                    yPos += addText(`Ukrainian State Aid: €${data.ukrainian_aid_amount}/month`, margin, yPos);
-                    yPos += addText(`Aid Proof Available: ${data.ukrainian_aid_proof || 'Not specified'}`, margin, yPos);
-                }
-                yPos += 10;
-            
-                // Check if we need a new page
-                if (yPos > 250) {
-                    doc.addPage();
-                    yPos = 20;
-                }
-            
-                // Rental Preferences
-                doc.setFont(undefined, 'bold');
-                yPos += addText('RENTAL PREFERENCES / MIETPRÄFERENZEN', margin, yPos);
-                doc.setFont(undefined, 'normal');
-                yPos += 3;
-            
-                yPos += addText(`Desired Move-in Date: ${data.moveInDate || 'Flexible'}`, margin, yPos);
-                yPos += addText(`Number of Occupants: ${data.moving_persons || 'Not specified'}`, margin, yPos);
-                yPos += addText(`Pets: ${data.pets || 'None specified'}`, margin, yPos);
-                yPos += addText(`Deposit Payment Ability: €${data.deposit_ability || 'Not specified'}`, margin, yPos);
-            
-                // Generate filename and save
-                const applicantName = `${data.applicant_firstname || 'applicant'}-${data.applicant_name || 'unknown'}`.toLowerCase().replace(/[^a-z0-9\-]/g, '');
-                const dateStr = new Date().toISOString().split('T')[0];
-                const filename = `rental-application-${applicantName}-${dateStr}.pdf`;
-            
-                doc.save(filename);
-                showStatus('PDF downloaded successfully! / PDF erfolgreich heruntergeladen!', false);
-            }
 
             // Event listener for PDF button
             document.getElementById('downloadPdfBtn').addEventListener('click', generatePDF);
