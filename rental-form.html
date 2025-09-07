@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Application Form - Braunschweig</title>
-    
     <style>
         * {
             margin: 0;
@@ -172,10 +171,14 @@
             border-top: 1px solid #ccc;
         }
         
-        
         .submit-btn {
             background-color: #333;
             color: white;
+            padding: 12px 30px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
         }
         
         .submit-btn:hover {
@@ -224,26 +227,6 @@
                 padding: 15px;
             }
         }
-    /* Add to your existing CSS */
-        @media print {
-            .container {
-                max-width: none !important;
-                margin: 0 !important;
-                padding: 20px !important;
-            }
-            
-            .form-row {
-                break-inside: avoid;
-            }
-            
-            .section {
-                break-inside: avoid;
-            }
-            
-            .household-table {
-                break-inside: avoid;
-            }
-        }
     </style>
 </head>
 <body>
@@ -253,11 +236,23 @@
             <h2>Mieterselbstauskunft</h2>
         </div>
         
+<!--         <div class="property-info">
+            <strong>Property Information / Angaben zum Mietobjekt:</strong>
+            <ul>
+                <li><strong>Address / Adresse:</strong> Building 24DE, Celler Str., 38114 Braunschweig</li>
+                <li><strong>Condition / Zustand:</strong> Living space 60m² / Wohnfläche 60m², with balcony / mit Balkon, 1 built-in kitchen / 1 Einbauküche, 1 toilet / 1 WC, 2 rooms / 2 Zimmer</li>
+                <li><strong>Building / Gebäude:</strong> Has 2 lifts / Hat 2 Aufzüge</li>
+                <li><strong>Location / Lage:</strong> 5 minutes on foot to Rewe, DM, Saray Markt, Bus station / 5 Minuten zu Fuß zu Rewe, DM, Saray Markt, Bushaltestelle</li>
+                <li><strong>Location / Lage:</strong> 10 minutes on foot to the city hospital / 10 Minuten zu Fuß zum Stadtkrankenhaus</li>
+                <li><strong>Rent / Miete:</strong> Kaltmiete 720 Euro, Warmmiete 850 Euro</li>
+                <li><strong>Deposit / Kaution:</strong> 3 months Kaltmiete (2,160 Euro) / 3 Monate Kaltmiete (2.160 Euro)</li>
+            </ul>
+        </div> -->
         <div class="property-info">
             <strong style="display:block; margin-bottom:8px;">Property Information / Angaben zum Mietobjekt:</strong>
             <ul>
                 <li><strong>Address / Adresse:</strong> Celler Str. 24DE, 38114 Braunschweig</li>
-                <li><strong>Living Space / Wohnfläche:</strong> 60 m² — bright 2-room apartment with balcony / helle 2-Zimmer-Wohnung mit Balkon</li>
+                <li><strong>Living Space / Wohnfläche:</strong> 60 m² – bright 2-room apartment with balcony / helle 2-Zimmer-Wohnung mit Balkon</li>
                 <li><strong>Kitchen / Küche:</strong> Modern built-in kitchen / moderne Einbauküche</li>
                 <li><strong>Bathroom / Bad:</strong> 1 WC</li>
                 <li><strong>Building / Gebäude:</strong> Barrier-free with 2 elevators / barrierefrei mit 2 Aufzügen</li>
@@ -267,7 +262,7 @@
                 <li><strong>Deposit / Kaution:</strong> 3 months basic rent (2,160 €) / 3 Monatskaltmieten (2.160 €)</li>
             </ul>
         </div>
-        
+		
         <div id="statusMessage" class="status-message"></div>
         
         <form id="rentalForm">
@@ -524,7 +519,7 @@
             </div>
 
             <div class="submit-section">
-                <button type="submit" class="btn submit-btn" id="submitBtn">
+                <button type="submit" class="submit-btn" id="submitBtn">
                     Submit Application / Bewerbung senden
                     <span class="loading" id="loadingSpinner">⏳</span>
                 </button>
@@ -534,7 +529,8 @@
 
     <script>
         // Configuration - Update this URL to your Azure Function endpoint
-        const BACKEND_URL = 'https://rental-form-api-ahgzbbhkarectvc0.germanywestcentral-01.azurewebsites.net/api/rental-application';
+        const BACKEND_URL = 'https://rental-form-api-ahgzbbhkarecfvc0.germanywestcentral-01.azurewebsites.net/api/rental-application?';
+		
         
         function showStatus(message, isError = false) {
             const statusDiv = document.getElementById('statusMessage');
@@ -567,10 +563,6 @@
             }
         }
 
-        
-        // Event listener for PDF button
-        document.getElementById('downloadPdfBtn').addEventListener('click', generatePDF);
-
         document.getElementById('rentalForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -597,7 +589,7 @@
                 
                 // Add timestamp and property info
                 data.submission_timestamp = new Date().toISOString();
-                data.property = "Celler Str. 24DE, 38114 Braunschweig - 60m², Kaltmiete 720€, Warmmiete 850€";
+                data.property = "Building 24DE, Celler Str., 38114 Braunschweig - 60m², Kaltmiete 720€, Warmmiete 850€";
                 
                 // Validate required fields
                 if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
@@ -633,7 +625,7 @@
                     // Fallback to mailto method
                     const emailContent = formatEmailContent(data);
                     const subject = `Rental Application - Braunschweig - ${data.applicant_firstname} ${data.applicant_name}`;
-                    const mailtoLink = `mailto:nguyenanhthang@outlook.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailContent)}`;
+                    const mailtoLink = `mailto:am.nguyen@outlook.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailContent)}`;
                     
                     // Create downloadable JSON file
                     const jsonString = JSON.stringify(data, null, 2);
@@ -648,7 +640,7 @@
                     // Open email client
                     window.location.href = mailtoLink;
                     
-                    showStatus('Application data prepared! Email client opened and JSON file downloaded. Please also attach the PDF file if you downloaded it. / Bewerbungsdaten vorbereitet! E-Mail-Client geöffnet und JSON-Datei heruntergeladen. Bitte fügen Sie auch die PDF-Datei hinzu, falls Sie sie heruntergeladen haben.', false);
+                    showStatus('Application data prepared! Email client opened and JSON file downloaded. / Bewerbungsdaten vorbereitet! E-Mail-Client geöffnet und JSON-Datei heruntergeladen.', false);
                 }
                 
             } catch (error) {
@@ -661,7 +653,7 @@
 
         function formatEmailContent(data) {
             let content = `New Rental Application for Braunschweig Apartment\n\n`;
-            content += `Property: Celler Str. 24DE, 38114 Braunschweig\n`;
+            content += `Property: Building 24DE, Celler Str., 38114 Braunschweig\n`;
             content += `60m² apartment, Kaltmiete 720€, Warmmiete 850€, Deposit: 2,160€\n`;
             content += `Submission Date: ${new Date().toLocaleString('de-DE')}\n\n`;
             
@@ -733,6 +725,7 @@
             content += `=== CONTACT FOR VIEWING ===\n`;
             content += `Email: ${data.applicant_email || ''}\n`;
             content += `Phone: ${data.applicant_mobile || ''}\n\n`;
+            
             content += `Full application data is available in JSON format upon request.\n`;
             
             return content;
