@@ -611,11 +611,9 @@
                     if (response.ok) {
                         const result = await response.json();
                         showStatus('Application submitted successfully! You will receive a confirmation email shortly. / Bewerbung erfolgreich eingereicht! Sie erhalten in Kürze eine Bestätigungs-E-Mail.', false);
-                        
-                        // Clear form after successful submission
-                        this.reset();
+                     
                         setLoading(false);
-                        return;
+
                     } else {
                         throw new Error('Backend submission failed');
                     }
