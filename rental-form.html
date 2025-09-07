@@ -716,4 +716,82 @@
             let content = `New Rental Application for Braunschweig Apartment\n\n`;
             content += `Property: Celler Str. 24DE, 38114 Braunschweig\n`;
             content += `60m² apartment, Kaltmiete 720€, Warmmiete 850€, Deposit: 2,160€\n`;
-            content += `Submission Date: ${new Date().toLocaleString
+            content += `Submission Date: ${new Date().toLocaleString('de-DE')}\n\n`;
+            
+            content += `=== APPLICANT INFORMATION ===\n`;
+            content += `Name: ${data.applicant_firstname || ''} ${data.applicant_name || ''}\n`;
+            content += `Date of Birth: ${data.applicant_dob || ''}\n`;
+            content += `Nationality: ${data.applicant_nationality || ''}\n`;
+            content += `Email: ${data.applicant_email || ''}\n`;
+            content += `Mobile: ${data.applicant_mobile || ''}\n`;
+            if (data.applicant_phone) content += `Phone: ${data.applicant_phone}\n`;
+            content += `Current Address: ${data.applicant_address || ''}\n`;
+            content += `Marital Status: ${data.applicant_marital || ''}\n\n`;
+            
+            content += `=== EMPLOYMENT & INCOME ===\n`;
+            content += `Employer: ${data.employer || ''}\n`;
+            content += `Job Title: ${data.job_title || ''}\n`;
+            content += `Employed Since: ${data.employment_since || ''}\n`;
+            if (data.self_employed) content += `Self-employed as: ${data.self_employed}\n`;
+            content += `Monthly Net Income: €${data.monthly_income || ''}\n`;
+            
+            if (data.ukrainian_aid_amount) {
+                content += `Ukrainian State Aid: €${data.ukrainian_aid_amount}/month\n`;
+                content += `Aid Proof Available: ${data.ukrainian_aid_proof || ''}\n`;
+            }
+            content += `\n`;
+            
+            content += `=== RENTAL DETAILS ===\n`;
+            content += `Desired Move-in Date: ${data.moveInDate || ''}\n`;
+            content += `Number of Persons: ${data.moving_persons || ''}\n`;
+            content += `Pets: ${data.pets || 'None specified'}\n`;
+            content += `Can Pay Deposit: €${data.deposit_ability || ''}\n`;
+            if (data.current_tenancy_since) content += `Current Tenancy Since: ${data.current_tenancy_since}\n`;
+            if (data.termination_by) content += `Termination Status: ${data.termination_by}\n`;
+            if (data.termination_reason) content += `Termination Reason: ${data.termination_reason}\n`;
+            content += `\n`;
+            
+            // Add household members if any
+            let householdMembers = [];
+            for (let i = 1; i <= 5; i++) {
+                if (data[`household_name_${i}`] || data[`household_firstname_${i}`]) {
+                    householdMembers.push(`${data[`household_firstname_${i}`] || ''} ${data[`household_name_${i}`] || ''} (${data[`household_relation_${i}`] || ''}, DOB: ${data[`household_dob_${i}`] || ''}, Income: €${data[`household_income_${i}`] || '0'})`);
+                }
+            }
+            if (householdMembers.length > 0) {
+                content += `=== HOUSEHOLD MEMBERS ===\n`;
+                householdMembers.forEach(member => content += member + '\n');
+                content += `\n`;
+            }
+            
+            // Add documents
+            const selectedDocs = Array.isArray(data.documents) ? data.documents : (data.documents ? [data.documents] : []);
+            if (selectedDocs.length > 0) {
+                content += `=== DOCUMENTS TO BE PROVIDED ===\n`;
+                selectedDocs.forEach(doc => {
+                    const docLabels = {
+                        'debt_free_certificate': 'Rental Debt-Free Certificate',
+                        'schufa_report': 'SCHUFA Credit Report',
+                        'income_proof': 'Income Verification (Last 3 Salary Statements)',
+                        'ukrainian_aid_proof': 'Ukrainian State Aid Documentation',
+                        'id_copy': 'Copy of Identity Document',
+                        'employment_contract': 'Employment Contract',
+                        'bank_statements': 'Bank Statements (Last 3 Months)'
+                    };
+                    content += `- ${docLabels[doc] || doc}\n`;
+                });
+                content += `\n`;
+            }
+            
+            content += `=== CONTACT FOR VIEWING ===\n`;
+            content += `Email: ${data.applicant_email || ''}\n`;
+            content += `Phone: ${data.applicant_mobile || ''}\n\n`;
+            
+            content += `NOTE: Applicant may also provide a PDF version of this application.\n`;
+            content += `Full application data is available in JSON format upon request.\n`;
+            
+            return content;
+        }
+    </script>
+</body>
+</html>
