@@ -439,7 +439,7 @@
                 <div class="section-title">Tenant Declaration / Mieterklärung</div>
                 <div class="declarations">
                     <div class="form-group">
-                        <label for="moving_persons">Total Number of Occupants / Gesamtanzahl der Bewohner <span class="required">*</span></label>
+                        <label for="moving_persons">Total Number of Occupants / Gesamtanzahl der Bewohner  <span class="required">*</span></label>
                         <input type="number" id="moving_persons" name="moving_persons" min="1">
                     </div>
                     
@@ -597,20 +597,7 @@
                     setLoading(false);
                     return;
                 }
-				
-				if (missingDocs.length > 0) {
-				    const docLabels = {
-				        'income_proof': 'Income Verification (Last 3 Salary Statements)',
-				        'id_copy': 'Copy of Identity Document', 
-				        'employment_contract': 'Employment Contract',
-				        'bank_statements': 'Bank Statements (Last 3 Months)'
-				    };
-				    const missingDocNames = missingDocs.map(doc => docLabels[doc]).join(', ');
-				    showStatus(`Please select these required documents: ${missingDocNames} / Bitte wählen Sie diese erforderlichen Dokumente aus`, true);
-				    setLoading(false);
-				    return;
-				}
-				
+
                 // Try backend submission first
                 try {
                     const response = await fetch(BACKEND_URL, {
@@ -715,7 +702,7 @@
                 householdMembers.forEach(member => content += member + '\n');
                 content += `\n`;
             }
-/*            
+            
             // Add documents
             const selectedDocs = Array.isArray(data.documents) ? data.documents : (data.documents ? [data.documents] : []);
             if (selectedDocs.length > 0) {
@@ -734,7 +721,7 @@
                 });
                 content += `\n`;
             }
-  */          
+            
             content += `=== CONTACT FOR VIEWING ===\n`;
             content += `Email: ${data.applicant_email || ''}\n`;
             content += `Phone: ${data.applicant_mobile || ''}\n\n`;
