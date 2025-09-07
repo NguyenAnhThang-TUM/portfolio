@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Application Form - Braunschweig</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -172,14 +172,6 @@
             border-top: 1px solid #ccc;
         }
         
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 5px;
-            border-radius: 4px;
-        }
         
         .submit-btn {
             background-color: #333;
@@ -193,15 +185,6 @@
         .submit-btn:disabled {
             background-color: #ccc;
             cursor: not-allowed;
-        }
-
-        .pdf-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .pdf-btn:hover {
-            background-color: #c82333;
         }
 
         .loading {
@@ -541,9 +524,6 @@
             </div>
 
             <div class="submit-section">
-                <button type="button" class="btn pdf-btn" id="downloadPdfBtn">
-                    Download PDF / PDF herunterladen
-                </button>
                 <button type="submit" class="btn submit-btn" id="submitBtn">
                     Submit Application / Bewerbung senden
                     <span class="loading" id="loadingSpinner">⏳</span>
@@ -587,95 +567,7 @@
             }
         }
 
-        // PDF Generation Function
-        function generatePDF() {
-            // Validate required fields first
-            const formData = new FormData(document.getElementById('rentalForm'));
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
         
-            if (!data.applicant_name || !data.applicant_firstname || !data.applicant_email || !data.monthly_income) {
-                showStatus('Please fill in all required fields before generating PDF / Bitte füllen Sie alle Pflichtfelder aus', true);
-                return;
-            }
-        
-            // Show loading message
-            showStatus('Generating PDF... / PDF wird erstellt...', false);
-        
-            // Temporarily hide the buttons during PDF generation
-            const submitSection = document.querySelector('.submit-section');
-            const statusMessage = document.getElementById('statusMessage');
-            const originalSubmitDisplay = submitSection.style.display;
-            const originalStatusDisplay = statusMessage.style.display;
-            
-            submitSection.style.display = 'none';
-            statusMessage.style.display = 'none';
-        
-            // Wait a moment for DOM updates
-            setTimeout(() => {
-                const options = {
-                    margin: [0.5, 0.5, 0.5, 0.5],
-                    filename: `rental-application-${data.applicant_firstname.toLowerCase().replace(/[^a-z]/g, '')}-${data.applicant_name.toLowerCase().replace(/[^a-z]/g, '')}-${new Date().toISOString().split('T')[0]}.pdf`,
-                    image: { 
-                        type: 'jpeg', 
-                        quality: 0.95 
-                    },
-                    html2canvas: { 
-                        scale: 1.5,
-                        useCORS: true,
-                        allowTaint: true,
-                        letterRendering: true,
-                        scrollX: 0,
-                        scrollY: 0,
-                        windowWidth: 1200,
-                        windowHeight: window.innerHeight
-                    },
-                    jsPDF: { 
-                        unit: 'in', 
-                        format: 'a4', 
-                        orientation: 'portrait',
-                        compress: true
-                    },
-                    pagebreak: { 
-                        mode: ['avoid-all', 'css', 'legacy'] 
-                    }
-                };
-        
-                html2pdf()
-                    .set(options)
-                    .from(document.querySelector('.container'))
-                    .toPdf()
-                    .get('pdf')
-                    .then(function(pdf) {
-                        // Get total pages
-                        const totalPages = pdf.internal.getNumberOfPages();
-                        
-                        // Add page numbers
-                        for (let i = 1; i <= totalPages; i++) {
-                            pdf.setPage(i);
-                            pdf.setFontSize(10);
-                            pdf.setTextColor(128, 128, 128);
-                            pdf.text('Page ' + i + ' of ' + totalPages, pdf.internal.pageSize.getWidth() - 1, pdf.internal.pageSize.getHeight() - 0.3);
-                        }
-                    })
-                    .save()
-                    .then(() => {
-                        // Restore elements
-                        submitSection.style.display = originalSubmitDisplay;
-                        statusMessage.style.display = originalStatusDisplay;
-                        showStatus('PDF downloaded successfully! / PDF erfolgreich heruntergeladen!', false);
-                    })
-                    .catch((error) => {
-                        // Restore elements even if there's an error
-                        submitSection.style.display = originalSubmitDisplay;
-                        statusMessage.style.display = originalStatusDisplay;
-                        showStatus('Error generating PDF / Fehler beim Erstellen der PDF', true);
-                        console.error('PDF generation error:', error);
-                    });
-            }, 100);
-        }
         // Event listener for PDF button
         document.getElementById('downloadPdfBtn').addEventListener('click', generatePDF);
 
@@ -841,8 +733,6 @@
             content += `=== CONTACT FOR VIEWING ===\n`;
             content += `Email: ${data.applicant_email || ''}\n`;
             content += `Phone: ${data.applicant_mobile || ''}\n\n`;
-            
-            content += `NOTE: Applicant may also provide a PDF version of this application.\n`;
             content += `Full application data is available in JSON format upon request.\n`;
             
             return content;
