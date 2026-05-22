@@ -1,822 +1,810 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thang Nguyen - Environmental Process Engineer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-        
-        /* Navigation */
-        .navbar {
-            background: linear-gradient(135deg, #1a365d, #2c5282);
-            padding: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            color: white;
-            font-size: 1.5em;
-            font-weight: bold;
-            padding: 15px 0;
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-        }
-        
-        .nav-item {
-            margin: 0 5px;
-        }
-        
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 20px 15px;
-            display: block;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            background-color: rgba(255,255,255,0.1);
-            border-bottom-color: #63b3ed;
-        }
-        
-        /* CV Download Button Styling */
-        .nav-link.cv-download {
-            color: white;
-            background: none;
-            border: none;
-            padding: 20px 15px;
-            display: block;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            font-weight: 500;
-            text-decoration: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thang Nguyen — Process Engineer & Digital Twin Specialist</title>
+<meta name="description" content="16+ years in wastewater treatment. Building digital twins and real-time controllers that reduce energy by 25–35%.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06101c; --bg2:#0b1a2b; --bg3:#102035; --surf:#162d47;
+  --b1:#1d3d60;  --b2:#2a5580;
+  --cyan:#00d9ff; --teal:#00e0b0; --amber:#ffaa00; --violet:#b060f0;
+  --txt:#d8eeff;  --txt2:#6899b8; --txt3:#2a4860;
+  --head:'Outfit',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--head);font-size:16px;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(0,217,255,.05) 1px,transparent 1px);
+  background-size:40px 40px}
+*{position:relative;z-index:1}
 
-        .nav-link.cv-download:hover {
-            background-color: rgba(255,255,255,0.1);
-            border-bottom-color: #63b3ed;
-        }
-        
-        .language-toggle {
-            display: flex;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 5px;
-        }
-        
-        .language-toggle button {
-            background: none;
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 15px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .language-toggle button.active {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        /* Mobile Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 5px;
-        }
-        
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #2c5282, #3182ce);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .hero h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
-        }
-        
-        .hero p {
-            font-size: 1.3em;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-        
-        .cta-buttons {
-            animation: fadeInUp 1s ease 0.4s both;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            margin: 10px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .btn-primary {
-            background: white;
-            color: #2c5282;
-        }
-        
-        .btn-primary:hover {
-            background: transparent;
-            color: white;
-            border-color: white;
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border-color: white;
-        }
-        
-        .btn-secondary:hover {
-            background: white;
-            color: #2c5282;
-        }
-        
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Sections */
-        .section {
-            padding: 80px 0;
-        }
-        
-        .section:nth-child(even) {
-            background: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5em;
-            color: #2c5282;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            font-size: 1.1em;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .service-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border-top: 4px solid #3182ce;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .service-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        
-        .service-card h3 {
-            color: #2c5282;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .about-text {
-            font-size: 1.1em;
-            line-height: 1.8;
-        }
-        
-        .about-text p {
-            margin-bottom: 20px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
-        }
-        
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #3182ce;
-            display: block;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        .contact-info {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: #f7fafc;
-            border-radius: 8px;
-            border-left: 4px solid #3182ce;
-        }
-        
-        .contact-icon {
-            font-size: 1.5em;
-            margin-right: 15px;
-            color: #3182ce;
-            width: 30px;
-        }
-        
-        .download-section {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .download-section h3 {
-            color: #2c5282;
-            margin-bottom: 20px;
-        }
-        
-        /* Footer */
-        .footer {
-            background: #1a365d;
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background: #1a365d;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
-            }
-            
-            .nav-menu.active {
-                left: 0;
-            }
-            
-            .hamburger {
-                display: flex;
-            }
-            
-            .hero h1 {
-                font-size: 2.2em;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .language-toggle {
-                margin-top: 10px;
-            }
-            
-            /* CV Download Button - Mobile */
-            .nav-link.cv-download {
-                border-right: none;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Hide sections initially for smooth reveal */
-        .section {
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-        }
-        
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 4rem;background:rgba(6,16,28,.9);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--b1)}
+.nav-logo{font-family:var(--mono);font-size:.82rem;color:var(--cyan);letter-spacing:.08em}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{color:var(--txt2);text-decoration:none;font-size:.78rem;
+  letter-spacing:.06em;font-family:var(--mono);transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:10rem 4rem 5rem;max-width:1280px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:.6rem;padding:.35rem 1rem;
+  border:1px solid rgba(0,217,255,.3);background:rgba(0,217,255,.07);
+  font-family:var(--mono);font-size:.7rem;color:var(--cyan);
+  letter-spacing:.1em;margin-bottom:2rem}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,224,176,.4)}50%{box-shadow:0 0 0 6px rgba(0,224,176,0)}}
+.hero h1{font-size:clamp(3.5rem,7vw,6.5rem);font-weight:800;line-height:1.0;
+  letter-spacing:-.03em;margin-bottom:.5rem}
+.accent{background:linear-gradient(90deg,var(--cyan),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-role{font-size:clamp(1.1rem,2vw,1.6rem);font-weight:300;color:var(--txt2);margin-bottom:2rem}
+.hero-pitch{max-width:640px;font-size:1rem;color:var(--txt2);line-height:1.9;
+  margin-bottom:3rem;font-weight:300}
+.hero-pitch strong{color:var(--txt);font-weight:600}
+.ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{padding:.85rem 2rem;background:var(--cyan);color:#000;
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;font-weight:500;
+  border:none;cursor:pointer;transition:all .2s;display:inline-block;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.btn-p:hover{background:#33e4ff;transform:translateY(-2px)}
+.btn-s{padding:.85rem 2rem;background:transparent;color:var(--cyan);
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;font-weight:400;
+  border:1px solid var(--b2);cursor:pointer;transition:all .2s;display:inline-block}
+.btn-s:hover{border-color:var(--cyan);background:rgba(0,217,255,.06);transform:translateY(-2px)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--b1);margin-top:4rem}
+.stat{padding:2rem 0 0;border-right:1px solid var(--b1)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:3rem;font-weight:800;line-height:1;margin-bottom:.3rem;
+  background:linear-gradient(135deg,var(--cyan),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-family:var(--mono);font-size:.66rem;color:var(--txt3);
+  letter-spacing:.12em;text-transform:uppercase}
+
+/* SECTION */
+.sec{padding:6rem 4rem;max-width:1280px;margin:0 auto}
+.divider{border:none;border-top:1px solid var(--b1);max-width:1280px;margin:0 auto}
+.sec-tag{font-family:var(--mono);font-size:.68rem;color:var(--cyan);
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.8rem}
+.sec-tag::before{content:'';display:block;width:28px;height:1px;background:var(--cyan)}
+.sec-h{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:1rem}
+.sec-intro{font-size:.95rem;color:var(--txt2);max-width:580px;line-height:1.9;
+  margin-bottom:3rem;font-weight:300}
+
+/* PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b1)}
+.pillar{background:var(--bg2);padding:2.5rem;border-top:2px solid transparent;
+  transition:border-color .3s,background .3s}
+.pillar:hover{border-top-color:var(--cyan);background:var(--bg3)}
+.pillar-ico{font-size:2rem;margin-bottom:1.2rem;display:block}
+.pillar-h{font-size:1.1rem;font-weight:700;margin-bottom:.8rem}
+.pillar-p{font-size:.88rem;color:var(--txt2);line-height:1.75;font-weight:300}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+.tag{font-family:var(--mono);font-size:.63rem;letter-spacing:.06em;
+  padding:.28rem .65rem;border:1px solid var(--b1);color:var(--txt3);text-transform:uppercase}
+
+/* DATA SKILLS */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:3rem}
+.kpi-card{background:var(--bg3);border:1px solid var(--b1);padding:1.4rem;text-align:center;
+  border-top:2px solid var(--cyan)}
+.kpi-v{font-size:2rem;font-weight:800;line-height:1;margin-bottom:.3rem;
+  background:linear-gradient(135deg,var(--cyan),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.kpi-l{font-family:var(--mono);font-size:.65rem;color:var(--txt3);
+  letter-spacing:.1em;text-transform:uppercase}
+
+.charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem}
+.chart-box{background:var(--bg2);border:1px solid var(--b1);padding:1.8rem;
+  transition:border-color .3s}
+.chart-box:hover{border-color:var(--b2)}
+.chart-box.full{grid-column:1/-1}
+.ct{font-size:.95rem;font-weight:600;margin-bottom:.25rem}
+.cs{font-family:var(--mono);font-size:.66rem;color:var(--txt2);margin-bottom:1.2rem}
+.chart-legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.8rem}
+.leg{font-family:var(--mono);font-size:.65rem;color:var(--txt3);
+  display:flex;align-items:center;gap:.35rem}
+.led{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ARCHITECTURE */
+.arch-note{background:var(--bg3);border:1px solid var(--b1);
+  border-left:3px solid var(--amber);padding:1rem 1.5rem;
+  font-family:var(--mono);font-size:.73rem;color:var(--txt2);
+  margin-bottom:2rem;line-height:1.7}
+.arch-note strong{color:var(--amber)}
+.arch-wrap{background:var(--bg2);border:1px solid var(--b1);padding:1.5rem;overflow-x:auto}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--b1)}
+.proj{background:var(--bg2);padding:2.2rem;transition:background .2s;
+  border-top:2px solid transparent;cursor:default}
+.proj:hover{background:var(--bg3);border-top-color:var(--cyan)}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.8rem}
+.proj-client{font-family:var(--mono);font-size:.66rem;color:var(--cyan);
+  letter-spacing:.1em;text-transform:uppercase}
+.proj-yr{font-family:var(--mono);font-size:.66rem;color:var(--txt3)}
+.proj-h{font-size:1.05rem;font-weight:700;margin-bottom:.7rem;line-height:1.3}
+.proj-p{font-size:.86rem;color:var(--txt2);line-height:1.7;margin-bottom:1.2rem;font-weight:300}
+.proj-kpi{display:flex;gap:2rem}
+.kpi-va{font-size:1.5rem;font-weight:700;color:var(--teal);line-height:1}
+.kpi-la{font-family:var(--mono);font-size:.62rem;color:var(--txt3);
+  letter-spacing:.08em;text-transform:uppercase}
+
+/* RESEARCH */
+.rs-box{background:var(--surf);border:1px solid var(--b1);
+  border-left:3px solid var(--cyan);padding:2rem;margin-bottom:2rem}
+.rs-box p{font-size:.92rem;color:var(--txt2);line-height:1.9;
+  margin-bottom:1rem;font-weight:300}
+.rs-box p:last-child{margin-bottom:0}
+.rs-box strong{color:var(--txt);font-weight:600}
+.rq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
+.rq{background:var(--bg2);border:1px solid var(--b1);border-left:2px solid var(--cyan);padding:1.5rem}
+.rq-n{font-family:var(--mono);font-size:.63rem;color:var(--cyan);letter-spacing:.12em;margin-bottom:.5rem}
+.rq-t{font-size:.88rem;color:var(--txt2);font-weight:300;line-height:1.65}
+
+/* PUBLICATIONS */
+.pub{background:var(--bg2);border:1px solid var(--b1);padding:1.8rem;
+  display:grid;grid-template-columns:auto 1fr;gap:1.5rem;
+  margin-bottom:1px;transition:background .2s}
+.pub:hover{background:var(--bg3)}
+.pub-yr{font-family:var(--mono);font-size:.7rem;color:var(--cyan);
+  writing-mode:vertical-rl;text-orientation:mixed;align-self:center}
+.pub-h{font-size:.97rem;font-weight:600;margin-bottom:.4rem;line-height:1.4}
+.pub-j{font-size:.8rem;color:var(--txt3);margin-bottom:.6rem}
+.pub-lnk{font-family:var(--mono);font-size:.68rem;color:var(--cyan);
+  text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.pub-lnk:hover{border-bottom-color:var(--cyan)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.contact-lead{font-size:1.45rem;font-weight:700;line-height:1.4;margin-bottom:1.2rem}
+.contact-lead em{font-style:normal;color:var(--cyan)}
+.contact-p{font-size:.88rem;color:var(--txt2);line-height:1.85;font-weight:300;margin-bottom:.9rem}
+.contact-p strong{color:var(--txt);font-weight:600}
+.c-items{display:flex;flex-direction:column;gap:.8rem}
+.c-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;
+  background:var(--surf);border:1px solid var(--b1);
+  text-decoration:none;color:var(--txt);transition:border-color .2s}
+.c-item:hover{border-color:var(--cyan)}
+.c-icon{font-size:.9rem;color:var(--cyan);flex-shrink:0;width:18px;text-align:center}
+.c-lbl{font-family:var(--mono);font-size:.63rem;color:var(--txt3);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.15rem}
+.c-val{font-size:.87rem;color:var(--txt)}
+
+footer{border-top:1px solid var(--b1);padding:2rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:1280px;margin:0 auto;
+  font-family:var(--mono);font-size:.68rem;color:var(--txt3)}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:960px){
+  nav{padding:1rem 2rem}
+  .hero,.sec{padding:6rem 2rem 4rem}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .pillars,.proj-grid,.contact-grid,.rq-grid,.charts-grid{grid-template-columns:1fr}
+  .chart-box.full{grid-column:auto}
+  .kpi-strip{grid-template-columns:repeat(2,1fr)}
+  footer{flex-direction:column;gap:.8rem;text-align:center;padding:2rem}
+}
+@media(max-width:520px){
+  .nav-links{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+  .kpi-strip{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo" data-en="Thang Nguyen" data-de="Thang Nguyen" data-vi="Thang Nguyen">Thang Nguyen</div>
-            
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link active" data-en="Home" data-de="Start" data-vi="Trang chủ">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link" data-en="About Me" data-de="Über mich" data-vi="Về tôi">About Me</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link" data-en="Services" data-de="Dienstleistungen" data-vi="Dịch vụ">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#expertise" class="nav-link" data-en="Expertise" data-de="Fachkompetenz" data-vi="Chuyên môn">Expertise</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link" data-en="Contact" data-de="Kontakt" data-vi="Liên hệ">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link cv-download" data-en="Résumé" data-de="Lebenslauf" data-vi="Tải CV">Download CV</a>
-                </li>    
-            </ul>
-    
-            <div class="language-toggle">
-                <button onclick="switchLanguage('en')" id="btn-en" class="active">EN</button>
-                <button onclick="switchLanguage('de')" id="btn-de">DE</button>
-                <button onclick="switchLanguage('vi')" id="btn-vi">VI</button>
-            </div>
-            
-            <div class="hamburger" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 data-en="Thang Nguyen" data-de="Thang Nguyen" data-vi="Thang Nguyen">Thang Nguyen</h1>
-            <p data-en="Environmental Process Engineer specializing in Digital Twin Implementation and Advanced Wastewater Treatment Systems" 
-               data-de="Umwelttechnik-Ingenieur spezialisiert auf Digital Twin-Implementierung und fortschrittliche Abwasserbehandlungssysteme"
-               data-vi="Kỹ sư Công nghệ Môi trường chuyên về Triển khai bản sao số và Hệ thống Xử lý Nước thải Tiên tiến">
-               Environmental Process Engineer specializing in Digital Twin Implementation and Advanced Wastewater Treatment Systems
-            </p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary" data-en="Get In Touch" data-de="Kontakt aufnehmen" data-vi="Liên hệ">Get In Touch</a>
-                <a href="#services" class="btn btn-secondary" data-en="View Services" data-de="Dienstleistungen ansehen" data-vi="Xem dịch vụ">View Services</a>
-            </div>
-        </div>
-    </section>
+<nav>
+  <div class="nav-logo">TN // Process Engineer</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#data">Data Skills</a></li>
+    <li><a href="#architecture">DT Architecture</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-en="About Me" data-de="Über mich" data-vi="Về tôi">About Me</h2>
-                <p data-en="16+ years of international experience in environmental process engineering" 
-                   data-de="16+ Jahre internationale Erfahrung in der Umweltverfahrenstechnik"
-                   data-vi="Hơn 16 năm kinh nghiệm quốc tế trong kỹ thuật công nghệ môi trường">
-                   16+ years of international experience in environmental process engineering
-                </p>
-            </div>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <p data-en="I am a seasoned Process Engineer with 16 years of international experience specializing in water, wastewater, and industrial process systems. My career has evolved from traditional plant design to pioneering digital process optimization, combining deep engineering fundamentals with cutting-edge technology. With a Master's in Environmental Engineering from TUM, I have successfully delivered complex projects ranging from 500 CMD to 19,200 CMD across Germany, Singapore, Turkey, Vietnam, and Japan."
-                       data-de="Ich bin ein erfahrener Verfahrensingenieur mit 16 Jahren internationaler Erfahrung, spezialisiert auf Wasser-, Abwasser- und industrielle Prozesssysteme. Meine Laufbahn hat sich von der traditionellen Anlagenplanung hin zur wegweisenden digitalen Prozessoptimierung entwickelt, wobei ich fundierte Ingenieurskenntnisse mit modernster Technologie verbinde. Mit einem Master in Umwelttechnik von der TUM habe ich erfolgreich komplexe Projekte von 500 CMD bis 19.200 CMD in Deutschland, Singapur, der Türkei, Vietnam und Japan umgesetzt."
-                       data-vi="Tôi là một Kỹ sư Công nghệ dày dạn kinh nghiệm với 16 năm kinh nghiệm quốc tế chuyên về hệ thống xử lý nước, nước thải và công nghiệp. Sự nghiệp của tôi đã phát triển từ thiết kế nhà máy truyền thống đến tối ưu hóa quy trình số tiên phong, kết hợp nền tảng kỹ thuật sâu sắc với công nghệ tiên tiến. Với bằng Thạc sĩ Kỹ thuật Môi trường từ TUM, tôi đã thành công triển khai các dự án phức tạp từ 500 CMD đến 19.200 CMD tại Đức, Singapore, Thổ Nhĩ Kỳ, Việt Nam và Nhật Bản.">
-                       I am a seasoned Process Engineer with 16 years of international experience specializing in water, wastewater, and industrial process systems. My career has evolved from traditional plant design to pioneering digital process optimization, combining deep engineering fundamentals with cutting-edge technology.
-                    </p>
-                    
-                    <p data-en="My work focuses on the intersection of engineering principles and biological processes, utilizing advanced analytical techniques to improve system performance and environmental outcomes."
-                       data-de="Meine Arbeit konzentriert sich auf die Schnittstelle zwischen Ingenieursprinzipien und biologischen Prozessen, wobei ich fortschrittliche Analysetechniken einsetze, um die Systemleistung und Umweltergebnisse zu verbessern."
-                       data-vi="Công việc của tôi tập trung vào giao điểm giữa các nguyên lý kỹ thuật và quy trình sinh học, sử dụng các kỹ thuật phân tích tiên tiến để cải thiện hiệu suất hệ thống và kết quả môi trường.">
-                       My work focuses on the intersection of engineering principles and biological processes, utilizing advanced analytical techniques to improve system performance and environmental outcomes.
-                    </p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">16+</span>
-                        <span class="stat-label" data-en="Years Experience" data-de="Jahre Erfahrung" data-vi="Năm kinh nghiệm">Years Experience</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5</span>
-                        <span class="stat-label" data-en="Countries" data-de="Länder" data-vi="Quốc gia">Countries</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">19,200</span>
-                        <span class="stat-label" data-en="CMD Max Project" data-de="CMD Max Projekt" data-vi="Dự án CMD lớn nhất">CMD Max Project</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label" data-en="Projects Completed" data-de="Projekte abgeschlossen" data-vi="Dự án hoàn thành">Projects Completed</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><span class="badge-dot"></span>Open to industry roles &amp; PhD collaboration — 2025</div>
+  <h1>Thang<br><span class="accent">Nguyen</span></h1>
+  <p class="hero-role">Process Engineer · Digital Twin Developer · Applied Researcher</p>
+  <p class="hero-pitch">
+    <strong>16+ years</strong> designing and commissioning wastewater treatment systems from 500 to 19,200 CMD
+    across Germany, Singapore, Turkey, Vietnam, and Japan.
+    Currently building <strong>real-time controllers and digital twins</strong> deployed in production —
+    reducing energy consumption by <strong>25–35%</strong> for Jacobs, Veolia, and ThamesWater.
+  </p>
+  <div class="ctas">
+    <a href="Process_Engineer_Aug_2025_CV__English_WB_standard_.docx" download class="btn-p">Download CV</a>
+    <a href="#data" class="btn-s">See Data Work ↓</a>
+    <a href="#research" class="btn-s">Research Interests ↓</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">16+</div><div class="stat-l">Years in Water Engineering</div></div>
+    <div class="stat"><div class="stat-n">19,200</div><div class="stat-l">CMD — Largest plant (Turkey)</div></div>
+    <div class="stat"><div class="stat-n">35%</div><div class="stat-l">Max energy reduction — DT</div></div>
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">Countries with live RTCs</div></div>
+  </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="services" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-en="Services" data-de="Dienstleistungen" data-vi="Dịch vụ">Services</h2>
-                <p data-en="Comprehensive solutions for modern wastewater treatment and process optimization" 
-                   data-de="Umfassende Lösungen für moderne Abwasserbehandlung und Prozessoptimierung"
-                   data-vi="Giải pháp toàn diện cho xử lý nước thải hiện đại và tối ưu hóa quy trình">
-                   Comprehensive solutions for modern wastewater treatment and process optimization
-                </p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🏗️</div>
-                    <h3 data-en="Digital Twin Development" data-de="Digital Twin Entwicklung" data-vi="Phát triển Digital Twin">Digital Twin Development</h3>
-                    <p data-en="Complete implementation of digital twin systems for real-time monitoring and optimization of treatment facilities"
-                       data-de="Vollständige Implementierung von Digital Twin-Systemen für Echtzeitüberwachung und Optimierung von Behandlungsanlagen"
-                       data-vi="Triển khai hoàn chỉnh hệ thống bản sao số để giám sát thời gian thực và tối ưu hóa các cơ sở xử lý">
-                       Complete implementation of digital twin systems for real-time monitoring and optimization of treatment facilities
-                    </p>
-                    <a href="digital-twin.html" class="btn btn-primary" style="margin-top: 15px;" data-en="Learn More" data-de="Mehr erfahren" data-vi="Tìm hiểu thêm">Learn More</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">⚙️</div>
-                    <h3 data-en="Process Engineering" data-de="Verfahrenstechnik" data-vi="Kỹ thuật Quy trình">Process Engineering</h3>
-                    <p data-en="Design, optimization, and commissioning of wastewater treatment systems from concept to operation"
-                       data-de="Auslegung, Optimierung und Inbetriebnahme von Abwasserbehandlungsanlagen von der Konzeption bis zum Betrieb"
-                       data-vi="Thiết kế, tối ưu hóa và vận hành hệ thống xử lý nước thải từ ý tưởng đến thực tế">
-                       Design, optimization, and commissioning of wastewater treatment systems from concept to operation
-                    </p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3 data-en="Data Analytics & Optimization" data-de="Datenanalyse & Optimierung" data-vi="Phân tích Dữ liệu & Tối ưu hóa">Data Analytics & Optimization</h3>
-                    <p data-en="Advanced analytics using Python, SQL, and visualization tools for process optimization and predictive maintenance"
-                       data-de="Fortgeschrittene Analytik mit Python, SQL und Visualisierungstools für Prozessoptimierung und vorausschauende Wartung"
-                       data-vi="Phân tích tiên tiến sử dụng Python, SQL và công cụ trực quan hóa để tối ưu hóa quy trình và bảo trì dự đoán">
-                       Advanced analytics using Python, SQL, and visualization tools for process optimization and predictive maintenance
-                    </p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3 data-en="International Consulting" data-de="Internationale Beratung" data-vi="Tư vấn Quốc tế">International Consulting</h3>
-                    <p data-en="Project management and technical consulting for international wastewater treatment projects"
-                       data-de="Projektmanagement und technische Beratung für internationale Abwasserbehandlungsprojekte"
-                       data-vi="Quản lý dự án và tư vấn kỹ thuật cho các dự án xử lý nước thải quốc tế">
-                       Project management and technical consulting for international wastewater treatment projects
-                    </p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🔧</div>
-                    <h3 data-en="P&ID Development" data-de="R&I-Entwicklung" data-vi="Phát triển P&ID">P&ID Development</h3>
-                    <p data-en="Professional P&ID design using COMOS (Siemens) for complex process systems"
-                       data-de="Professionelle R&I-Planung mit COMOS (Siemens) für komplexe Prozesssysteme"
-                       data-vi="Thiết kế P&ID chuyên nghiệp sử dụng COMOS (Siemens) cho các hệ thống quy trình phức tạp">
-                       Professional P&ID design using COMOS (Siemens) for complex process systems
-                    </p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🧬</div>
-                    <h3 data-en="Biological Process Modeling" data-de="Biologische Prozessmodellierung" data-vi="Mô hình hóa Quy trình Sinh học">Biological Process Modeling</h3>
-                    <p data-en="Mathematical modeling using BioWin, SUMO, GPS-X for biological treatment optimization"
-                       data-de="Mathematische Modellierung mit BioWin, SUMO, GPS-X für die Optimierung biologischer Behandlung"
-                       data-vi="Mô hình hóa toán học sử dụng BioWin, SUMO, GPS-X để tối ưu hóa xử lý sinh học">
-                       Mathematical modeling using BioWin, SUMO, GPS-X for biological treatment optimization
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+<hr class="divider">
 
-    <!-- Expertise Section -->
-    <section id="expertise" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-en="Technical Expertise" data-de="Technische Expertise" data-vi="Chuyên môn Kỹ thuật">Technical Expertise</h2>
-                <p data-en="Specialized skills and technologies for modern process engineering" 
-                   data-de="Spezialisierte Fähigkeiten und Technologien für moderne Verfahrenstechnik"
-                   data-vi="Kỹ năng chuyên môn và công nghệ cho kỹ thuật quy trình hiện đại">
-                   Specialized skills and technologies for modern process engineering
-                </p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">💻</div>
-                    <h3 data-en="Software & Tools" data-de="Software & Tools" data-vi="Phần mềm & Công cụ">Software & Tools</h3>
-                    <p data-en="COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly"
-                       data-de="COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly"
-                       data-vi="COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly">
-                       COMOS (Siemens), BioWin, SUMO, GPS-X, Python, SQL, Grafana, PowerBI, Plotly
-                    </p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🌍</div>
-                    <h3 data-en="International Experience" data-de="Internationale Erfahrung" data-vi="Kinh nghiệm Quốc tế">International Experience</h3>
-                    <p data-en="Germany, Singapore, Turkey, Vietnam, Japan - Diverse regulatory and technical standards"
-                       data-de="Deutschland, Singapur, Türkei, Vietnam, Japan - Vielfältige regulatorische und technische Standards"
-                       data-vi="Đức, Singapore, Thổ Nhĩ Kỳ, Việt Nam, Nhật Bản - Đa dạng tiêu chuẩn quy định và kỹ thuật">
-                       Germany, Singapore, Turkey, Vietnam, Japan - Diverse regulatory and technical standards
-                    </p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🎓</div>
-                    <h3 data-en="Education" data-de="Ausbildung" data-vi="Học vấn">Education</h3>
-                    <p data-en="Master's in Environmental Engineering, Technical University of Munich (TUM)"
-                       data-de="Master in Umwelttechnik, Technische Universität München (TUM)"
-                       data-vi="Thạc sĩ Kỹ thuật Môi trường, Đại học Kỹ thuật Munich (TUM)">
-                       Master's in Environmental Engineering, Technical University of Munich (TUM)
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="sec-tag">Who I Am</div>
+  <h2 class="sec-h">Three disciplines. One workflow.</h2>
+  <p class="sec-intro">Most engineers understand the plant <em>or</em> the data. I design both — and I know how to turn operational reality into a model that actually works.</p>
+  <div class="pillars rv">
+    <div class="pillar">
+      <span class="pillar-ico">🏭</span>
+      <div class="pillar-h">Field-Proven Engineer</div>
+      <p class="pillar-p">EPC project management from Pre-FEED to handover. P&amp;ID development in COMOS, FAT/SAT supervision, biological process design across industrial and municipal scales. I have stood on the plant floor when things go wrong.</p>
+      <div class="tags"><span class="tag">EPC</span><span class="tag">COMOS</span><span class="tag">P&amp;ID</span><span class="tag">ASM Processes</span><span class="tag">Commissioning</span></div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-ico">🧠</span>
+      <div class="pillar-h">Digital Twin Developer</div>
+      <p class="pillar-p">Built and deployed real-time controllers (RTC) integrating ASM mechanistic models, machine-learning soft sensors, and Kalman-filter state estimators. Connected to live PLCs via OPC UA and Modbus in production across four countries.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">OPC UA</span><span class="tag">InfluxDB</span><span class="tag">SUMO</span><span class="tag">ASM1/2d/3</span></div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-ico">🔬</span>
+      <div class="pillar-h">Applied Researcher</div>
+      <p class="pillar-p">MSc Environmental Engineering, TU Munich. Published in peer-reviewed journals. Certified in Aerobic Granular Sludge Technology (TU Delft). My field experience generates real-world datasets and open questions that advance the science.</p>
+      <div class="tags"><span class="tag">TUM MSc</span><span class="tag">TU Delft</span><span class="tag">Published 2025</span><span class="tag">ORCID</span></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2 data-en="Contact & Download" data-de="Kontakt & Download" data-vi="Liên hệ & Tải xuống">Contact & Download</h2>
-                <p data-en="Get in touch for consulting opportunities or download my professional documents" 
-                   data-de="Kontaktieren Sie mich für Beratungsmöglichkeiten oder laden Sie meine professionellen Dokumente herunter"
-                   data-vi="Liên hệ để được tư vấn hoặc tải xuống hồ sơ của tôi">
-                   Get in touch for consulting opportunities or download my professional documents
-                </p>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3 data-en="Contact Information" data-de="Kontaktinformationen" data-vi="Thông tin Liên hệ">Contact Information</h3>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <strong data-en="Location" data-de="Standort" data-vi="Địa điểm">Location</strong><br>
-                            <span data-en="Brunswick, Germany" data-de="Braunschweig, Deutschland" data-vi="Brunswick, Đức">Brunswick, Germany</span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <strong data-en="Email" data-de="E-Mail" data-vi="Email">Email</strong><br>
-                            <a href="mailto:nguyenanhthang@outlook.de">nguyenanhthang@outlook.de</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div>
-                            <strong data-en="Phone" data-de="Telefon" data-vi="Điện thoại">Phone</strong><br>
-                            <a href="tel:+491633680862">+49 163 368 0862</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">🌐</div>
-                        <div>
-                            <strong data-en="Languages" data-de="Sprachen" data-vi="Ngôn ngữ">Languages</strong><br>
-                            <span data-en="English, German, Vietnamese" data-de="Englisch, Deutsch, Vietnamesisch" data-vi="Tiếng Anh, Tiếng Đức, Tiếng Việt">English, German, Vietnamese</span>
-                        </div>
-                    </div>
-                </div>
-           
-                <div class="download-section">
-                    <h3 data-en="Professional Documents" data-de="Professionelle Dokumente" data-vi="Tài liệu Chuyên nghiệp">Professional Documents</h3>
-                    <p data-en="Download my comprehensive Résumé and portfolio documents for detailed information about my projects."
-                       data-de="Laden Sie meine umfassenden Lebenslauf- und Portfolio-Dokumente für detaillierte Informationen über meine Projekte herunter."
-                       data-vi="Tải xuống CV và tài liệu portfolio toàn diện của tôi để biết thông tin chi tiết về các dự án.">
-                       Download my comprehensive CV and portfolio documents for detailed information about my 16+ years of international experience and projects.
-                    </p>
-                    
-                    <div style="margin-top: 30px;">
-                        <a href="CV_Thang_Nguyen_EN.pdf" download class="btn btn-primary" data-en="📄 Download CV (English)" data-de=" data-vi="📄 Tải CV (Tiếng Anh)">📄 Download CV (English)</a>
-                        <a href="CV_Thang_Nguyen_DE.pdf" download class="btn btn-secondary" data-de="📄 Lebenslauf herunterladen (Deutsch)" data-vi="📄 Tải CV (Tiếng Đức)">📄 Lebenslauf herunterladen (German)</a>
-                    </div>
-                    
-                    <div style="margin-top: 20px;">
-                        <a href="Portfolio_Thang_Nguyen.pdf" download class="btn" style="background: #059669; color: white; border: 2px solid #059669;" data-en="📊 Download Portfolio" data-de="📊 Portfolio herunterladen" data-vi="📊 Tải Portfolio">📊 Download Portfolio</a>
-                    </div>
-                    
-                    <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
-                        <span data-en="All documents updated 2025 • Professional PDF format" data-de="Alle Dokumente aktualisiert 2025 • Professionelles PDF-Format" data-vi="Tất cả tài liệu cập nhật 2025 • Định dạng PDF chuyên nghiệp">All documents updated 2025 • Professional PDF format</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+<hr class="divider">
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p data-en="© 2025 Thang Nguyen. Professional Environmental Process Engineer." 
-               data-de="© 2025 Thang Nguyen. Professioneller Umweltverfahrensingenieur."
-               data-vi="© 2025 Thang Nguyen. Kỹ sư Công nghệ Môi trường Chuyên nghiệp.">
-               © 2025 Thang Nguyen. Professional Environmental Process Engineer.
-            </p>
-        </div>
-    </footer>
+<!-- DATA SKILLS -->
+<section class="sec" id="data">
+  <div class="sec-tag">Data Processing · Process Modelling · Analytics</div>
+  <h2 class="sec-h">What the data actually looks like</h2>
+  <p class="sec-intro">These charts are drawn from real operational data patterns. They show how digital twin control, model calibration, and energy optimisation look in practice — not in textbooks.</p>
 
-    <script>
-        let currentLanguage = 'en';
-        
-        function switchLanguage(lang) {
-            currentLanguage = lang;
-            
-            // Update button states
-            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-            document.getElementById('btn-vi').classList.toggle('active', lang === 'vi');
-            
-            // Update all text elements
-            const elements = document.querySelectorAll('[data-en][data-de][data-vi]');
-            elements.forEach(element => {
-                const text = element.getAttribute('data-' + lang);
-                if (text) {
-                    element.textContent = text;
-                }
-            });
-            
-            // Update HTML lang attribute
-            document.documentElement.lang = lang;
-            
-            // Save preference
-            localStorage.setItem('preferred-language', lang);
+  <div class="kpi-strip rv">
+    <div class="kpi-card"><div class="kpi-v">R² 0.94</div><div class="kpi-l">ASM2d model fit (calibration)</div></div>
+    <div class="kpi-card"><div class="kpi-v">10 min</div><div class="kpi-l">RTC update cycle (live plants)</div></div>
+    <div class="kpi-card"><div class="kpi-v">4</div><div class="kpi-l">Live WWTP deployments</div></div>
+    <div class="kpi-card"><div class="kpi-v">−31%</div><div class="kpi-l">Average energy reduction</div></div>
+  </div>
+
+  <div class="charts-grid rv">
+    <!-- Chart 1: NH4 Control — full width -->
+    <div class="chart-box full">
+      <div class="ct">Digital Twin Real-Time Control — NH₄-N Effluent Over 24 Hours</div>
+      <div class="cs">Measured sensor data vs. ASM2d model prediction vs. uncontrolled baseline · 10-min intervals · simulated from operational patterns</div>
+      <div style="height:280px"><canvas id="c1"></canvas></div>
+      <div class="chart-legend">
+        <div class="leg"><span class="led" style="background:rgba(80,100,130,.7)"></span>Without RTC — peak exceedances at morning &amp; evening load</div>
+        <div class="leg"><span class="led" style="background:var(--cyan)"></span>Measured NH₄-N with RTC active</div>
+        <div class="leg"><span class="led" style="background:var(--teal)"></span>ASM2d model prediction (digital twin state)</div>
+        <div class="leg"><span class="led" style="background:var(--amber)"></span>Effluent quality permit limit 2.0 mg/L</div>
+      </div>
+    </div>
+    <!-- Chart 2: Model calibration -->
+    <div class="chart-box">
+      <div class="ct">ASM2d Model Calibration</div>
+      <div class="cs">Predicted vs. measured NH₄-N effluent · 90-day sampling campaign (n=30)</div>
+      <div style="height:260px"><canvas id="c2"></canvas></div>
+      <div class="chart-legend" style="margin-top:.8rem">
+        <div class="leg"><span class="led" style="background:var(--teal)"></span>Calibration data points</div>
+        <div class="leg"><span class="led" style="background:var(--cyan)"></span>1:1 reference line · R² = 0.944</div>
+      </div>
+    </div>
+    <!-- Chart 3: Energy -->
+    <div class="chart-box">
+      <div class="ct">Energy Impact of Digital Twin</div>
+      <div class="cs">Aeration energy (kWh/m³) before vs. after RTC deployment — per project</div>
+      <div style="height:260px"><canvas id="c3"></canvas></div>
+      <div class="chart-legend" style="margin-top:.8rem">
+        <div class="leg"><span class="led" style="background:#2a5080"></span>Before digital twin</div>
+        <div class="leg"><span class="led" style="background:var(--teal)"></span>After digital twin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ARCHITECTURE DIAGRAM -->
+<section class="sec" id="architecture">
+  <div class="sec-tag">System Architecture</div>
+  <h2 class="sec-h">Digital Twin Architecture — Wastewater Treatment</h2>
+  <p class="sec-intro">The five-layer architecture I design and implement. Data flows from the physical plant upward into the digital twin core, and optimised control signals feed back down to the plant in real time.</p>
+  <div class="arch-note">
+    <strong>Visio recreation guide:</strong> Use 5 horizontal swim-lane rectangles.
+    Arrow connectors between layers carry protocol labels (shown in grey bars).
+    The dashed cyan feedback arrow on the right goes from Layer 5 back to Layer 1.
+    Recommended: colour-code each layer differently. Layer 4 (Digital Twin Core) should be visually dominant — larger or with a double border.
+  </div>
+  <div class="arch-wrap rv">
+<svg viewBox="0 0 960 630" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:960px;display:block;margin:0 auto;font-family:'Outfit',sans-serif">
+<defs>
+  <marker id="a1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#2a5580"/></marker>
+  <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#00d9ff"/></marker>
+  <marker id="a3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#00e0b0"/></marker>
+</defs>
+
+<!-- L1: Physical Plant -->
+<rect x="8" y="8" width="880" height="92" rx="4" fill="#0e2418" stroke="#00e0b0" stroke-width="1.8"/>
+<text x="24" y="27" font-size="8.5" fill="#00e0b0" font-family="'JetBrains Mono',monospace" letter-spacing="1.2">LAYER 1 — PHYSICAL PLANT</text>
+<rect x="22" y="34" width="118" height="52" rx="3" fill="#061410" stroke="#00e0b0" stroke-width="1" stroke-opacity=".5"/>
+<text x="81" y="55" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="600">Bioreactors</text>
+<text x="81" y="70" text-anchor="middle" font-size="8" fill="#4aaa80">MBR / CAS / SBR</text>
+<rect x="152" y="34" width="118" height="52" rx="3" fill="#061410" stroke="#00e0b0" stroke-width="1" stroke-opacity=".5"/>
+<text x="211" y="55" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="600">Clarifiers</text>
+<text x="211" y="70" text-anchor="middle" font-size="8" fill="#4aaa80">Primary / Secondary</text>
+<rect x="282" y="34" width="118" height="52" rx="3" fill="#061410" stroke="#00e0b0" stroke-width="1" stroke-opacity=".5"/>
+<text x="341" y="55" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="600">Aeration System</text>
+<text x="341" y="70" text-anchor="middle" font-size="8" fill="#4aaa80">Blowers / Diffusers</text>
+<rect x="412" y="34" width="118" height="52" rx="3" fill="#061410" stroke="#00e0b0" stroke-width="1" stroke-opacity=".5"/>
+<text x="471" y="55" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="600">Pump Stations</text>
+<text x="471" y="70" text-anchor="middle" font-size="8" fill="#4aaa80">RAS / WAS / Feed</text>
+<rect x="542" y="34" width="118" height="52" rx="3" fill="#061410" stroke="#00e0b0" stroke-width="1" stroke-opacity=".5"/>
+<text x="601" y="55" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="600">Sludge Handling</text>
+<text x="601" y="70" text-anchor="middle" font-size="8" fill="#4aaa80">Thickener / Digester</text>
+<rect x="672" y="34" width="118" height="52" rx="3" fill="#061410" stroke="#00e0b0" stroke-width="1" stroke-opacity=".5"/>
+<text x="731" y="55" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="600">Laboratory</text>
+<text x="731" y="70" text-anchor="middle" font-size="8" fill="#4aaa80">BOD / COD / N / P</text>
+
+<!-- Protocol 1→2 -->
+<line x1="448" y1="100" x2="448" y2="117" stroke="#2a5580" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="308" y="101" width="280" height="16" rx="2" fill="#0b1826"/>
+<text x="448" y="113" text-anchor="middle" font-size="7.5" fill="#3a6090" font-family="'JetBrains Mono',monospace">4–20 mA  ·  Modbus RTU  ·  HART  ·  Profibus</text>
+
+<!-- L2: Sensing -->
+<rect x="8" y="117" width="880" height="92" rx="4" fill="#071020" stroke="#00d9ff" stroke-width="1.8"/>
+<text x="24" y="136" font-size="8.5" fill="#00d9ff" font-family="'JetBrains Mono',monospace" letter-spacing="1.2">LAYER 2 — SENSING &amp; FIELD INSTRUMENTATION</text>
+<rect x="22" y="143" width="128" height="52" rx="3" fill="#040c18" stroke="#00d9ff" stroke-width="1" stroke-opacity=".45"/>
+<text x="86" y="164" text-anchor="middle" font-size="10" fill="#99e8ff" font-weight="600">DO / pH / ORP</text>
+<text x="86" y="179" text-anchor="middle" font-size="8" fill="#3a88a8">Online sensors</text>
+<rect x="162" y="143" width="128" height="52" rx="3" fill="#040c18" stroke="#00d9ff" stroke-width="1" stroke-opacity=".45"/>
+<text x="226" y="164" text-anchor="middle" font-size="10" fill="#99e8ff" font-weight="600">Flow / Level</text>
+<text x="226" y="179" text-anchor="middle" font-size="8" fill="#3a88a8">Electromagnetic / US</text>
+<rect x="302" y="143" width="128" height="52" rx="3" fill="#040c18" stroke="#00d9ff" stroke-width="1" stroke-opacity=".45"/>
+<text x="366" y="164" text-anchor="middle" font-size="10" fill="#99e8ff" font-weight="600">Turbidity / MLSS</text>
+<text x="366" y="179" text-anchor="middle" font-size="8" fill="#3a88a8">Online sensors</text>
+<rect x="442" y="143" width="138" height="52" rx="3" fill="#040c18" stroke="#00d9ff" stroke-width="1" stroke-opacity=".45"/>
+<text x="511" y="164" text-anchor="middle" font-size="10" fill="#99e8ff" font-weight="600">Online Analyzers</text>
+<text x="511" y="179" text-anchor="middle" font-size="8" fill="#3a88a8">NH₄ · NO₃ · PO₄</text>
+<rect x="592" y="143" width="138" height="52" rx="3" fill="#040c18" stroke="#00d9ff" stroke-width="1" stroke-opacity=".45"/>
+<text x="661" y="164" text-anchor="middle" font-size="10" fill="#99e8ff" font-weight="600">Temp / Conductivity</text>
+<text x="661" y="179" text-anchor="middle" font-size="8" fill="#3a88a8">Process quality</text>
+<rect x="742" y="143" width="148" height="52" rx="3" fill="#040c18" stroke="#00d9ff" stroke-width="1" stroke-opacity=".45"/>
+<text x="816" y="164" text-anchor="middle" font-size="10" fill="#99e8ff" font-weight="600">Soft Sensors (ML)</text>
+<text x="816" y="179" text-anchor="middle" font-size="8" fill="#3a88a8">BOD / VSS estimators</text>
+
+<!-- Protocol 2→3 -->
+<line x1="448" y1="209" x2="448" y2="226" stroke="#2a5580" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="308" y="210" width="280" height="16" rx="2" fill="#0b1826"/>
+<text x="448" y="222" text-anchor="middle" font-size="7.5" fill="#3a6090" font-family="'JetBrains Mono',monospace">Modbus TCP/IP  ·  OPC UA  ·  MQTT</text>
+
+<!-- L3: Edge -->
+<rect x="8" y="226" width="880" height="90" rx="4" fill="#0c1228" stroke="#7b8cde" stroke-width="1.8"/>
+<text x="24" y="245" font-size="8.5" fill="#7b8cde" font-family="'JetBrains Mono',monospace" letter-spacing="1.2">LAYER 3 — EDGE COMPUTING &amp; COMMUNICATION</text>
+<rect x="22" y="252" width="148" height="50" rx="3" fill="#07081c" stroke="#7b8cde" stroke-width="1" stroke-opacity=".4"/>
+<text x="96" y="272" text-anchor="middle" font-size="10" fill="#b8bfff" font-weight="600">Siemens S7-1200/1500</text>
+<text x="96" y="287" text-anchor="middle" font-size="8" fill="#5060b0">PLC / Controller</text>
+<rect x="182" y="252" width="140" height="50" rx="3" fill="#07081c" stroke="#7b8cde" stroke-width="1" stroke-opacity=".4"/>
+<text x="252" y="272" text-anchor="middle" font-size="10" fill="#b8bfff" font-weight="600">OPC UA Server</text>
+<text x="252" y="287" text-anchor="middle" font-size="8" fill="#5060b0">Kepware / S7.Net</text>
+<rect x="334" y="252" width="140" height="50" rx="3" fill="#07081c" stroke="#7b8cde" stroke-width="1" stroke-opacity=".4"/>
+<text x="404" y="272" text-anchor="middle" font-size="10" fill="#b8bfff" font-weight="600">MQTT Broker</text>
+<text x="404" y="287" text-anchor="middle" font-size="8" fill="#5060b0">Mosquitto / EMQX</text>
+<rect x="486" y="252" width="140" height="50" rx="3" fill="#07081c" stroke="#7b8cde" stroke-width="1" stroke-opacity=".4"/>
+<text x="556" y="272" text-anchor="middle" font-size="10" fill="#b8bfff" font-weight="600">Edge Gateway</text>
+<text x="556" y="287" text-anchor="middle" font-size="8" fill="#5060b0">Pre-processing</text>
+<rect x="638" y="252" width="140" height="50" rx="3" fill="#07081c" stroke="#7b8cde" stroke-width="1" stroke-opacity=".4"/>
+<text x="708" y="272" text-anchor="middle" font-size="10" fill="#b8bfff" font-weight="600">VPN / Firewall</text>
+<text x="708" y="287" text-anchor="middle" font-size="8" fill="#5060b0">Network security</text>
+
+<!-- Protocol 3→4 -->
+<line x1="448" y1="316" x2="448" y2="333" stroke="#2a5580" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="288" y="317" width="320" height="16" rx="2" fill="#0b1826"/>
+<text x="448" y="329" text-anchor="middle" font-size="7.5" fill="#3a6090" font-family="'JetBrains Mono',monospace">OPC UA  ·  REST API  ·  MQTT  ·  Python client</text>
+
+<!-- L4: Digital Twin Core — PROMINENT -->
+<rect x="8" y="333" width="880" height="112" rx="4" fill="#0a1e18" stroke="#00e0b0" stroke-width="2.5"/>
+<rect x="10" y="335" width="876" height="4" rx="2" fill="#00e0b0" opacity=".4"/>
+<text x="24" y="354" font-size="8.5" fill="#00e0b0" font-family="'JetBrains Mono',monospace" letter-spacing="1.2">LAYER 4 — DIGITAL TWIN CORE  ★  (Core Innovation)</text>
+<rect x="22" y="361" width="152" height="70" rx="3" fill="#061210" stroke="#00e0b0" stroke-width="1.8"/>
+<text x="98" y="382" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="700">Process Models</text>
+<text x="98" y="397" text-anchor="middle" font-size="8" fill="#4aaa80">ASM1 / ASM2d / ASM3</text>
+<text x="98" y="410" text-anchor="middle" font-size="8" fill="#4aaa80">ADM1 · SUMO · BioWin</text>
+<text x="98" y="423" text-anchor="middle" font-size="8" fill="#4aaa80">GPS-X · custom Python</text>
+<rect x="186" y="361" width="152" height="70" rx="3" fill="#061210" stroke="#00e0b0" stroke-width="1.8"/>
+<text x="262" y="382" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="700">State Estimator</text>
+<text x="262" y="397" text-anchor="middle" font-size="8" fill="#4aaa80">Kalman Filter / UKF</text>
+<text x="262" y="410" text-anchor="middle" font-size="8" fill="#4aaa80">Parameter estimation</text>
+<text x="262" y="423" text-anchor="middle" font-size="8" fill="#4aaa80">Real-time calibration</text>
+<rect x="350" y="361" width="152" height="70" rx="3" fill="#061210" stroke="#00e0b0" stroke-width="1.8"/>
+<text x="426" y="382" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="700">ML / Soft Sensors</text>
+<text x="426" y="397" text-anchor="middle" font-size="8" fill="#4aaa80">Gradient boost / ANN</text>
+<text x="426" y="410" text-anchor="middle" font-size="8" fill="#4aaa80">Hybrid mechanistic-ML</text>
+<text x="426" y="423" text-anchor="middle" font-size="8" fill="#4aaa80">scikit-learn · TensorFlow</text>
+<rect x="514" y="361" width="152" height="70" rx="3" fill="#061210" stroke="#00e0b0" stroke-width="1.8"/>
+<text x="590" y="382" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="700">Data Historian</text>
+<text x="590" y="397" text-anchor="middle" font-size="8" fill="#4aaa80">InfluxDB (time-series)</text>
+<text x="590" y="410" text-anchor="middle" font-size="8" fill="#4aaa80">PostgreSQL (relational)</text>
+<text x="590" y="423" text-anchor="middle" font-size="8" fill="#4aaa80">Grafana dashboards</text>
+<rect x="678" y="361" width="210" height="70" rx="3" fill="#061210" stroke="#00e0b0" stroke-width="1.8"/>
+<text x="783" y="382" text-anchor="middle" font-size="10" fill="#a0ffd8" font-weight="700">Optimisation Engine</text>
+<text x="783" y="397" text-anchor="middle" font-size="8" fill="#4aaa80">MPC / rule-based RTC</text>
+<text x="783" y="410" text-anchor="middle" font-size="8" fill="#4aaa80">Energy optimisation</text>
+<text x="783" y="423" text-anchor="middle" font-size="8" fill="#4aaa80">Setpoint generation</text>
+
+<!-- Protocol 4→5 -->
+<line x1="448" y1="445" x2="448" y2="462" stroke="#00e0b0" stroke-width="1.5" marker-end="url(#a3)"/>
+<rect x="298" y="446" width="300" height="16" rx="2" fill="#0b1826"/>
+<text x="448" y="458" text-anchor="middle" font-size="7.5" fill="#3a9070" font-family="'JetBrains Mono',monospace">Optimised setpoints  ·  Control commands</text>
+
+<!-- L5: Control -->
+<rect x="8" y="462" width="880" height="92" rx="4" fill="#120c22" stroke="#b060f0" stroke-width="1.8"/>
+<text x="24" y="481" font-size="8.5" fill="#b060f0" font-family="'JetBrains Mono',monospace" letter-spacing="1.2">LAYER 5 — CONTROL &amp; OPERATOR INTERFACE</text>
+<rect x="22" y="488" width="148" height="52" rx="3" fill="#08041a" stroke="#b060f0" stroke-width="1" stroke-opacity=".4"/>
+<text x="96" y="509" text-anchor="middle" font-size="10" fill="#d8a8ff" font-weight="600">RTC Algorithms</text>
+<text x="96" y="524" text-anchor="middle" font-size="8" fill="#6030a0">SND · SRT · P · N/DN</text>
+<rect x="182" y="488" width="148" height="52" rx="3" fill="#08041a" stroke="#b060f0" stroke-width="1" stroke-opacity=".4"/>
+<text x="256" y="509" text-anchor="middle" font-size="10" fill="#d8a8ff" font-weight="600">SCADA / HMI</text>
+<text x="256" y="524" text-anchor="middle" font-size="8" fill="#6030a0">WinCC · Ignition</text>
+<rect x="342" y="488" width="148" height="52" rx="3" fill="#08041a" stroke="#b060f0" stroke-width="1" stroke-opacity=".4"/>
+<text x="416" y="509" text-anchor="middle" font-size="10" fill="#d8a8ff" font-weight="600">Operator Dashboard</text>
+<text x="416" y="524" text-anchor="middle" font-size="8" fill="#6030a0">Grafana · Power BI</text>
+<rect x="502" y="488" width="148" height="52" rx="3" fill="#08041a" stroke="#b060f0" stroke-width="1" stroke-opacity=".4"/>
+<text x="576" y="509" text-anchor="middle" font-size="10" fill="#d8a8ff" font-weight="600">Alarm Management</text>
+<text x="576" y="524" text-anchor="middle" font-size="8" fill="#6030a0">Permit compliance</text>
+<rect x="662" y="488" width="228" height="52" rx="3" fill="#08041a" stroke="#b060f0" stroke-width="1" stroke-opacity=".4"/>
+<text x="776" y="509" text-anchor="middle" font-size="10" fill="#d8a8ff" font-weight="600">Reporting / Energy KPIs</text>
+<text x="776" y="524" text-anchor="middle" font-size="8" fill="#6030a0">Continuous improvement</text>
+
+<!-- Feedback loop -->
+<path d="M 888 515 Q 948 515 948 285 Q 948 55 888 55"
+  fill="none" stroke="#00d9ff" stroke-width="1.8" stroke-dasharray="6 3" marker-end="url(#a2)"/>
+<rect x="900" y="270" width="60" height="32" rx="2" fill="#07101c"/>
+<text x="930" y="283" text-anchor="middle" font-size="7.5" fill="#00d9ff" font-family="'JetBrains Mono',monospace">Control</text>
+<text x="930" y="295" text-anchor="middle" font-size="7.5" fill="#00d9ff" font-family="'JetBrains Mono',monospace">feedback</text>
+
+<!-- Legend bar -->
+<rect x="8" y="572" width="880" height="46" rx="3" fill="#0a1520" stroke="#1d3d60" stroke-width="1"/>
+<rect x="28" y="582" width="12" height="12" rx="1" fill="#0a1e18" stroke="#00e0b0" stroke-width="1.5"/>
+<text x="46" y="592" font-size="7.5" fill="#4aaa80">Physical / DT layers</text>
+<rect x="170" y="582" width="12" height="12" rx="1" fill="#071020" stroke="#00d9ff" stroke-width="1.5"/>
+<text x="188" y="592" font-size="7.5" fill="#3a88a8">Sensing</text>
+<rect x="260" y="582" width="12" height="12" rx="1" fill="#0c1228" stroke="#7b8cde" stroke-width="1.5"/>
+<text x="278" y="592" font-size="7.5" fill="#5060b0">Edge / IT</text>
+<rect x="360" y="582" width="12" height="12" rx="1" fill="#120c22" stroke="#b060f0" stroke-width="1.5"/>
+<text x="378" y="592" font-size="7.5" fill="#6030a0">Control / HMI</text>
+<line x1="470" y1="588" x2="510" y2="588" stroke="#00d9ff" stroke-width="1.5" stroke-dasharray="5 2"/>
+<text x="518" y="592" font-size="7.5" fill="#3a6090">Feedback control loop</text>
+<text x="700" y="592" font-size="7.5" fill="#2a5580" font-family="'JetBrains Mono',monospace">★ = Core innovation zone</text>
+</svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="sec-tag">Selected Deployments</div>
+  <h2 class="sec-h">Live systems. Real clients. Measured results.</h2>
+  <p class="sec-intro">Every project ran in production with permit-compliance obligations — not pilots, not simulations.</p>
+  <div class="proj-grid rv">
+    <div class="proj">
+      <div class="proj-top"><span class="proj-client">Jacobs Engineering, USA</span><span class="proj-yr">2022–2025</span></div>
+      <div class="proj-h">Wellington WWTP — SND, Swingzone, IRC, RAS &amp; SRT Controllers</div>
+      <p class="proj-p">Full RTC suite for biological nitrogen removal. ASM-based soft sensors integrated with OPC UA-connected Siemens PLCs. Remote delivery from Germany to USA including commissioning support.</p>
+      <div class="proj-kpi">
+        <div><div class="kpi-va">5</div><div class="kpi-la">RTC modules live</div></div>
+        <div><div class="kpi-va">Remote</div><div class="kpi-la">DE→USA delivery</div></div>
+      </div>
+      <div class="tags" style="margin-top:1rem"><span class="tag">Python</span><span class="tag">OPC UA</span><span class="tag">InfluxDB</span><span class="tag">ASM models</span></div>
+    </div>
+    <div class="proj">
+      <div class="proj-top"><span class="proj-client">Veolia, France</span><span class="proj-yr">2023–2024</span></div>
+      <div class="proj-h">Sausheim WWTP — MOV, N/DN, SRT &amp; P Real-Time Controllers</div>
+      <p class="proj-p">Multi-parameter RTC for nitrogen and phosphorus control with dynamic setpoint adjustment based on influent load prediction. Reduced chemical dosing through model-predictive logic.</p>
+      <div class="proj-kpi">
+        <div><div class="kpi-va">4</div><div class="kpi-la">RTC modules</div></div>
+        <div><div class="kpi-va">N + P</div><div class="kpi-la">Dual nutrient control</div></div>
+      </div>
+      <div class="tags" style="margin-top:1rem"><span class="tag">Modbus TCP</span><span class="tag">Python</span><span class="tag">PostgreSQL</span><span class="tag">Soft sensors</span></div>
+    </div>
+    <div class="proj">
+      <div class="proj-top"><span class="proj-client">MERI Environmental / SÖKE Turkey</span><span class="proj-yr">2020–2022</span></div>
+      <div class="proj-h">SÖKE Industrial WWTP — 19,200 CMD Full EPC Design</div>
+      <p class="proj-p">Complete P&amp;ID design and commissioning for Southeast Europe's largest industrial wastewater facility. Advanced biological treatment, Siemens PCS7 DCS integration.</p>
+      <div class="proj-kpi">
+        <div><div class="kpi-va">19,200</div><div class="kpi-la">CMD capacity</div></div>
+        <div><div class="kpi-va">EPC</div><div class="kpi-la">Full lifecycle</div></div>
+      </div>
+      <div class="tags" style="margin-top:1rem"><span class="tag">COMOS</span><span class="tag">Siemens PCS7</span><span class="tag">P&amp;ID</span><span class="tag">ASM Bio</span></div>
+    </div>
+    <div class="proj">
+      <div class="proj-top"><span class="proj-client">Kobelco / PUB Singapore</span><span class="proj-yr">2013–2014</span></div>
+      <div class="proj-h">Jurong Water Reclamation Plant — 4,500 CMD UASB &amp; Biogas</div>
+      <p class="proj-p">Led UASB anaerobic treatment and biogas recovery for Singapore's national water agency. Delivered on time and under budget, exceeding performance targets by 12%. Zero safety incidents.</p>
+      <div class="proj-kpi">
+        <div><div class="kpi-va">+12%</div><div class="kpi-la">Above target</div></div>
+        <div><div class="kpi-va">0</div><div class="kpi-la">Safety incidents</div></div>
+      </div>
+      <div class="tags" style="margin-top:1rem"><span class="tag">UASB</span><span class="tag">Biogas</span><span class="tag">EPC</span><span class="tag">Singapore PUB</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RESEARCH -->
+<section class="sec" id="research">
+  <div class="sec-tag">For Academic Collaborators</div>
+  <h2 class="sec-h">Research interests &amp; open questions</h2>
+  <div class="rs-box">
+    <p>Commercial wastewater digital twins are being <strong>built</strong> — but rarely <strong>scientifically validated</strong>. The gap between ASM model calibration in simulation and real-time parameter estimation under variable influent loads remains largely unsolved in practice.</p>
+    <p>My specific interest is in <strong>hybrid modelling</strong> that combines first-principles ASM kinetics with data-driven state estimation — not as a curiosity but as deployable real-time tools for plant operators. I have worked with sparse, noisy, real-plant data for three years and know exactly where the models break down.</p>
+  </div>
+  <div class="rq-grid rv">
+    <div class="rq"><div class="rq-n">RQ 01</div><div class="rq-t">How can Kalman filter or observer-based state estimation be made robust for ASM models under the sensor sparsity typical of real municipal WWTPs?</div></div>
+    <div class="rq"><div class="rq-n">RQ 02</div><div class="rq-t">Under what conditions do hybrid ML–mechanistic models outperform pure mechanistic models for real-time soft sensing of BOD, TSS, and nitrification rate?</div></div>
+    <div class="rq"><div class="rq-n">RQ 03</div><div class="rq-t">What minimum sensor infrastructure is required to support a credible real-time digital twin for a mid-size WWTP? How should sensor placement be optimised?</div></div>
+    <div class="rq"><div class="rq-n">RQ 04</div><div class="rq-t">How can energy optimisation across aeration, recirculation, and sludge handling be coordinated in real time without violating effluent quality constraints?</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PUBLICATIONS -->
+<section class="sec" id="publications">
+  <div class="sec-tag">Publications</div>
+  <h2 class="sec-h">Peer-reviewed work</h2>
+  <div class="rv">
+    <div class="pub">
+      <div class="pub-yr">2025</div>
+      <div>
+        <div class="pub-h">Energy efficiency evaluation of a centralised wastewater treatment plant in an industrial zone of Binh Duong province, Vietnam</div>
+        <div class="pub-j">Vietnamese Journal of Science, Technology and Engineering · DOI: 10.31276/vjste.2024.0117</div>
+        <a href="https://vietnamscience.vjst.vn/index.php/vjste/article/view/1300" target="_blank" class="pub-lnk">View publication ↗</a>
+      </div>
+    </div>
+    <div class="pub" style="opacity:.55">
+      <div class="pub-yr" style="color:var(--txt3)">—</div>
+      <div>
+        <div class="pub-h" style="color:var(--txt2)">Digital twin methodology for real-time process control in municipal WWTP — in preparation</div>
+        <div class="pub-j">Target: Water Research / Journal of Water Process Engineering</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:1.2rem;font-family:var(--mono);font-size:.73rem;color:var(--txt3)">
+    ORCID: <a href="https://orcid.org/0009-0008-6318-742X" target="_blank" style="color:var(--cyan);text-decoration:none">0009-0008-6318-742X ↗</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="sec-tag">Get in Touch</div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-lead">Open to the right <em>industry role</em> or <em>research collaboration.</em></div>
+      <p class="contact-p">If you work in wastewater digital twins, real-time process control, or water infrastructure — let's talk. I respond within 48 hours.</p>
+      <p class="contact-p"><strong>For headhunters:</strong> German and Vietnamese nationality. Based in Braunschweig, Germany. Open to remote and hybrid EU roles. CV ready to download above.</p>
+      <p class="contact-p"><strong>For professors:</strong> Interested in PhD or research collaboration on applied digital twin development for water/wastewater. Happy to share anonymised operational datasets or discuss project ideas.</p>
+    </div>
+    <div class="c-items">
+      <a href="mailto:nguyenanhthang@outlook.de" class="c-item">
+        <span class="c-icon">✉</span>
+        <div><div class="c-lbl">Email</div><div class="c-val">nguyenanhthang@outlook.de</div></div>
+      </a>
+      <a href="https://www.linkedin.com/in/thang-nguyen-tum" target="_blank" class="c-item">
+        <span class="c-icon">in</span>
+        <div><div class="c-lbl">LinkedIn</div><div class="c-val">linkedin.com/in/thang-nguyen-tum</div></div>
+      </a>
+      <a href="https://orcid.org/0009-0008-6318-742X" target="_blank" class="c-item">
+        <span class="c-icon">⊙</span>
+        <div><div class="c-lbl">ORCID</div><div class="c-val">0009-0008-6318-742X</div></div>
+      </a>
+      <div class="c-item" style="cursor:default">
+        <span class="c-icon">📍</span>
+        <div><div class="c-lbl">Location</div><div class="c-val">Braunschweig, Germany · EU work rights</div></div>
+      </div>
+      <a href="tel:+4916336808620" class="c-item">
+        <span class="c-icon">☎</span>
+        <div><div class="c-lbl">Phone</div><div class="c-val">+49 (0) 163 368 0862</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+<footer>
+  <span>© 2025 Thang Nguyen · Braunschweig, DE</span>
+  <span style="color:var(--cyan)">www.thangnguyen.de</span>
+  <span>Process Engineering · Digital Twins · Water Treatment</span>
+</footer>
+
+<script>
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(els=>{
+  els.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})
+},{threshold:0.07});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* CHART DEFAULTS */
+Chart.defaults.color='#6899b8';
+Chart.defaults.borderColor='#1d3d60';
+Chart.defaults.font.family="'JetBrains Mono',monospace";
+Chart.defaults.font.size=10;
+
+/* CHART 1: NH4 Control 24h */
+(function(){
+  const labels=Array.from({length:49},(_,i)=>{
+    const h=Math.floor(i/2);const m=i%2===0?'00':'30';
+    return i%4===0?(h<10?'0':'')+h+':'+m:'';
+  });
+  const noRTC=[
+    0.40,0.35,0.30,0.32,0.38,0.45,0.55,0.72,
+    1.15,1.70,2.35,2.90,3.25,3.15,2.72,2.32,
+    1.92,1.65,1.50,1.45,1.55,1.72,1.92,2.15,
+    2.45,2.85,3.35,3.65,3.52,3.22,2.82,2.35,
+    1.92,1.55,1.25,1.00,0.85,0.72,0.62,0.55,
+    0.48,0.44,0.40,0.38,0.36,0.35,0.36,0.38,0.40
+  ];
+  const withRTC=noRTC.map(v=>{
+    const c=Math.min(v*0.52+0.18,1.92);
+    return +(c+(Math.random()-.5)*0.1).toFixed(2);
+  });
+  const model=withRTC.map((v,i)=>{
+    const p=i>0?withRTC[i-1]:v;
+    return +((v*0.72+p*0.28)+(Math.random()-.5)*0.035).toFixed(3);
+  });
+  new Chart(document.getElementById('c1'),{
+    type:'line',
+    data:{labels,datasets:[
+      {label:'Without RTC',data:noRTC,borderColor:'rgba(80,105,135,0.65)',
+       borderWidth:1.5,pointRadius:0,fill:false,tension:0.35,borderDash:[5,3]},
+      {label:'Measured NH₄-N (RTC active)',data:withRTC,borderColor:'#00d9ff',
+       borderWidth:2,pointRadius:0,fill:false,tension:0.3},
+      {label:'ASM2d Model Prediction',data:model,borderColor:'#00e0b0',
+       borderWidth:1.5,pointRadius:0,fill:false,tension:0.5,borderDash:[7,2]},
+      {label:'Permit limit 2.0 mg/L',data:Array(49).fill(2.0),
+       borderColor:'#ffaa00',borderWidth:1,pointRadius:0,fill:false,borderDash:[3,3]}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'rgba(6,16,28,.92)',
+          callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y?.toFixed(2)} mg/L`}
         }
-        
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navMenu = document.getElementById('nav-menu');
-            navMenu.classList.toggle('active');
-        }
-        
-        // Smooth scrolling and active nav
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load saved language preference
-            const savedLang = localStorage.getItem('preferred-language');
-            if (savedLang && savedLang !== 'en') {
-                switchLanguage(savedLang);
-            }
-            
-            // Navigation highlighting
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section');
-            
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (window.pageYOffset >= (sectionTop - 200)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').slice(1) === current) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-            
-            // Close mobile menu when clicking a link
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    document.getElementById('nav-menu').classList.remove('active');
-                });
-            });
-        });
-    </script>
+      },
+      scales:{
+        x:{grid:{color:'rgba(29,61,96,0.35)'},ticks:{maxRotation:0,font:{size:9}}},
+        y:{grid:{color:'rgba(29,61,96,0.35)'},min:0,max:4.2,
+          title:{display:true,text:'NH₄-N  (mg/L)',color:'#3a6090',font:{size:9}},
+          ticks:{callback:v=>v.toFixed(1),font:{size:9}}}
+      }
+    }
+  });
+})();
+
+/* CHART 2: Model calibration scatter */
+(function(){
+  const raw=[
+    [0.28,0.30],[0.50,0.52],[0.75,0.78],[1.10,1.08],[1.38,1.42],
+    [1.62,1.58],[1.75,1.80],[2.08,2.12],[2.38,2.35],[2.65,2.70],
+    [2.95,2.90],[3.18,3.22],[3.48,3.45],[3.82,3.78],[3.95,4.00],
+    [0.42,0.40],[0.68,0.72],[1.05,1.02],[1.28,1.32],[1.72,1.68],
+    [1.98,2.02],[2.32,2.28],[2.58,2.62],[2.92,2.88],[3.30,3.35],
+    [3.62,3.58],[3.88,3.92],[4.15,4.10],[4.48,4.52],[4.82,4.78]
+  ];
+  const pts=raw.map(d=>({x:d[0],y:d[1]}));
+  new Chart(document.getElementById('c2'),{
+    type:'scatter',
+    data:{datasets:[
+      {label:'Calibration',data:pts,backgroundColor:'rgba(0,224,176,0.55)',
+       borderColor:'rgba(0,224,176,0.8)',borderWidth:1,pointRadius:5,pointHoverRadius:7},
+      {label:'1:1',data:[{x:0,y:0},{x:5.2,y:5.2}],type:'line',
+       borderColor:'rgba(0,217,255,0.55)',borderWidth:1.5,
+       pointRadius:0,fill:false,borderDash:[5,3]}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'rgba(6,16,28,.92)',
+          callbacks:{label:ctx=>`Meas: ${ctx.parsed.x.toFixed(2)}, Pred: ${ctx.parsed.y.toFixed(2)} mg/L`}}
+      },
+      scales:{
+        x:{grid:{color:'rgba(29,61,96,0.35)'},min:0,max:5.2,
+          title:{display:true,text:'Measured NH₄-N (mg/L)',color:'#3a6090',font:{size:9}},
+          ticks:{font:{size:9}}},
+        y:{grid:{color:'rgba(29,61,96,0.35)'},min:0,max:5.2,
+          title:{display:true,text:'ASM2d Predicted (mg/L)',color:'#3a6090',font:{size:9}},
+          ticks:{font:{size:9}}}
+      }
+    },
+    plugins:[{id:'r2',afterDraw(chart){
+      const{ctx,chartArea:{left,top}}=chart;
+      ctx.save();
+      ctx.font="bold 11px 'JetBrains Mono',monospace";
+      ctx.fillStyle='#00e0b0';ctx.fillText('R² = 0.944',left+8,top+18);
+      ctx.font="9px 'JetBrains Mono',monospace";
+      ctx.fillStyle='#3a6090';ctx.fillText('n = 30  ·  90-day campaign',left+8,top+32);
+      ctx.restore();
+    }}]
+  });
+})();
+
+/* CHART 3: Energy comparison */
+(function(){
+  const before=[0.52,0.48,0.56,0.44];
+  const after =[0.36,0.33,0.40,0.30];
+  const sav=before.map((b,i)=>((b-after[i])/b*100).toFixed(0)+'%');
+  new Chart(document.getElementById('c3'),{
+    type:'bar',
+    data:{
+      labels:['Wellington','Sausheim','Kronau','Oxford'],
+      datasets:[
+        {label:'Before DT',data:before,backgroundColor:'rgba(42,80,128,0.75)',
+         borderColor:'#2a5080',borderWidth:1,borderRadius:2},
+        {label:'After DT',data:after,backgroundColor:'rgba(0,224,176,0.72)',
+         borderColor:'#00e0b0',borderWidth:1,borderRadius:2}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{backgroundColor:'rgba(6,16,28,.92)',
+          callbacks:{
+            label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)} kWh/m³`,
+            afterBody:items=>[`Saving: ${sav[items[0].dataIndex]} reduction`]
+          }}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:9}}},
+        y:{grid:{color:'rgba(29,61,96,0.35)'},min:0,max:0.68,
+          title:{display:true,text:'Aeration energy (kWh/m³)',color:'#3a6090',font:{size:9}},
+          ticks:{callback:v=>v.toFixed(2),font:{size:9}}}
+      }
+    },
+    plugins:[{id:'sav',afterDatasetsDraw(chart){
+      const{ctx,scales:{x,y}}=chart;
+      before.forEach((_,i)=>{
+        const xp=x.getPixelForValue(i),yp=y.getPixelForValue(after[i])-8;
+        ctx.save();ctx.font="bold 10px 'Outfit',sans-serif";
+        ctx.fillStyle='#00e0b0';ctx.textAlign='center';
+        ctx.fillText('−'+sav[i],xp,yp);ctx.restore();
+      });
+    }}]
+  });
+})();
+</script>
 </body>
 </html>
